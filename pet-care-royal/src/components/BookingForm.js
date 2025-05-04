@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { auth, db } from '../firebase';
+import { collection, getDocs, addDoc, query, where } from 'firebase/firestore';
 
 const BookingForm = () => {
   const [pets, setPets] = useState([]);
@@ -13,16 +14,18 @@ const BookingForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [petsResponse, servicesResponse] = await Promise.all([
-          axios.get('http://localhost:5000/api/pets', {
-            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-          }),
-          axios.get('http://localhost:5000/api/services'),
+        const user = auth.currentUser;
+        if (!user) throw new Error('No autenticado');
+        const petsQuery = query(collection(db, 'pets'), where('owner', '==', user.uid));
+        const servicesQuery = collection(db, 'services');
+        const [petsSnapshot, servicesSnapshot] = await Promise.all([
+          getDocs(petsQuery),
+          getDocs(servicesQuery),
         ]);
-        setPets(petsResponse.data);
-        setServices(servicesResponse.data);
+        setPets(petsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        setServices(servicesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
       } catch (err) {
-        setError(err.response?.data.message || 'Error al cargar datos');
+        setError(err.message);
       }
     };
     fetchData();
@@ -31,24 +34,22 @@ const BookingForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        'http://localhost:5000/api/bookings',
-        {
-          pet: selectedPet,
-          service: selectedService,
-          date,
-        },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        }
-      );
+      const user = auth.currentUser;
+      if (!user) throw new Error('No autenticado');
+      await addDoc(collection(db, 'bookings'), {
+        pet: selectedPet,
+        service: selectedService,
+        date: new Date(date),
+        status: 'pending',
+        client: user.uid,
+      });
       setSuccess('Reserva creada con éxito');
       setError('');
       setSelectedPet('');
       setSelectedService('');
       setDate('');
     } catch (err) {
-      setError(err.response?.data.message || 'Error al crear reserva');
+      setError(err.message);
       setSuccess('');
     }
   };
@@ -72,7 +73,7 @@ const BookingForm = () => {
           >
             <option value="">Selecciona una mascota</option>
             {pets.map((pet) => (
-              <option key={pet._id} value={pet._id}>{pet.name}</option>
+              <option key={pet.id} value={pet.id}>{pet.name}</option>
             ))}
           </select>
         </div>
@@ -86,7 +87,7 @@ const BookingForm = () => {
           >
             <option value="">Selecciona un servicio</option>
             {services.map((service) => (
-              <option key={service._id} value={service._id}>{service.name} (${service.price})</option>
+              <option key={service.id} value={service.id}>{service.name} (${service.price})</option>
             ))}
           </select>
         </div>
@@ -114,4 +115,3 @@ const BookingForm = () => {
 };
 
 export default BookingForm;
-//creo que vy hacer dos archivos para evitar mas demoras :3 PD: no me di cuenta que son 116 lineas de codigo 

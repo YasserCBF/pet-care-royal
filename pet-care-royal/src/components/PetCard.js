@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { auth, db } from '../firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const PetCard = () => {
   const [pets, setPets] = useState([]);
@@ -8,12 +9,14 @@ const PetCard = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/pets', {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        });
-        setPets(response.data);
+        const user = auth.currentUser;
+        if (!user) throw new Error('No autenticado');
+        const q = query(collection(db, 'pets'), where('owner', '==', user.uid));
+        const querySnapshot = await getDocs(q);
+        const petList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setPets(petList);
       } catch (err) {
-        setError(err.response?.data.message || 'Error al cargar mascotas');
+        setError(err.message);
       }
     };
     fetchPets();
@@ -21,12 +24,12 @@ const PetCard = () => {
 
   return (
     <div style={{ background: 'var(--blanco-crema)', padding: '20px' }}>
-      <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center' }}>Mis Mascotas</h2>
+      <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center' }}>Mis Mascotas - Pet Care Royal</h2>
       {error && <p style={{ background: 'var(--melocoton-suave)', color: 'var(--gris-oscuro)', padding: '10px', borderRadius: '5px' }}>{error}</p>}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
         {pets.map((pet) => (
           <div
-            key={pet._id}
+            key={pet.id}
             style={{
               background: 'var(--menta-suave)',
               borderRadius: '10px',
@@ -49,7 +52,5 @@ const PetCard = () => {
     </div>
   );
 };
-//me acaba de morde un cucaracha XD
+
 export default PetCard;
-
-
