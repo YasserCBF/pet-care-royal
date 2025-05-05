@@ -101,9 +101,6 @@ const BookingForm = () => {
         ) : (
           <>
             <div className="form-group">
-              <label className="form-label" htmlFor="pet">
-                Mascota
-              </label>
               <select
                 id="pet"
                 value={selectedPet}
@@ -126,9 +123,6 @@ const BookingForm = () => {
               )}
             </div>
             <div className="form-group">
-              <label className="form-label" htmlFor="service">
-                Servicio
-              </label>
               <select
                 id="service"
                 value={selectedService}
@@ -151,9 +145,6 @@ const BookingForm = () => {
               )}
             </div>
             <div className="form-group">
-              <label className="form-label" htmlFor="date">
-                Fecha y Hora
-              </label>
               <input
                 id="date"
                 type="datetime-local"
@@ -165,16 +156,13 @@ const BookingForm = () => {
               />
             </div>
             <div className="form-group">
-              <label className="form-label" htmlFor="notes">
-                Notas Adicionales (Opcional)
-              </label>
               <textarea
                 id="notes"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 className="form-input form-textarea"
                 rows="4"
-                placeholder="Ej. 'Mi perro necesita un champú hipoalergénico'"
+                placeholder="Ejem. Mi perro necesita un champú hipoalergénico"
                 disabled={loading}
               />
             </div>

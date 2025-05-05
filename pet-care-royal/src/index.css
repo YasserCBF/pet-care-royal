@@ -25,11 +25,37 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, var(--blanco-crema), var(--lavanda-claro));
   color: var(--gris-oscuro);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, var(--menta-suave), var(--azul-cielo), var(--rosa-pastel), var(--lavanda-claro));
+  background-size: 150% 150%;
+  animation: globalBlend 25s ease infinite;
+  z-index: -1;
+}
+
+@keyframes globalBlend {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
 h1, h2, h3 {
@@ -247,7 +273,6 @@ input:focus, select:focus, textarea:focus {
 
 /* Estilos para la sección de reservas */
 .booking-section {
-  background: linear-gradient(135deg, var(--menta-suave), var(--azul-cielo));
   padding: 60px 20px;
   display: flex;
   justify-content: center;
