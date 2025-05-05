@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../firebase';
 import { doc, setDoc } from 'firebase/firestore';
-import { motion } from 'framer-motion';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -36,10 +35,7 @@ const Login = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
+    <div
       style={{
         minHeight: '100vh',
         display: 'flex',
@@ -49,12 +45,9 @@ const Login = () => {
         padding: '20px',
       }}
     >
-      <motion.form
+      <form
         onSubmit={handleSubmit}
         className="form-container"
-        initial={{ scale: 0.9 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.5 }}
         style={{
           background: 'var(--blanco-crema)',
           padding: '40px',
@@ -62,16 +55,13 @@ const Login = () => {
           boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)',
           maxWidth: '400px',
           width: '100%',
-          backdropFilter: 'blur(10px)',
         }}
       >
         <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginBottom: '20px', fontSize: '24px' }}>
           {isRegister ? 'Crear Cuenta' : 'Iniciar Sesión'} - Pet Care Royal
         </h2>
         {error && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+          <p
             style={{
               background: 'var(--coral-suave)',
               color: 'var(--gris-oscuro)',
@@ -82,7 +72,7 @@ const Login = () => {
             }}
           >
             {error}
-          </motion.p>
+          </p>
         )}
         <div style={{ marginBottom: '20px' }}>
           <label style={{ color: 'var(--gris-oscuro)', fontWeight: '400', display: 'block', marginBottom: '5px' }}>
@@ -150,10 +140,8 @@ const Login = () => {
             </select>
           </div>
         )}
-        <motion.button
+        <button
           type="submit"
-          whileHover={{ scale: loading ? 1 : 1.05 }}
-          whileTap={{ scale: loading ? 1 : 0.95 }}
           style={{
             background: 'linear-gradient(90deg, var(--oro-suave), var(--melocoton-suave))',
             color: 'var(--gris-oscuro)',
@@ -169,19 +157,19 @@ const Login = () => {
           disabled={loading}
         >
           {loading ? 'Cargando...' : isRegister ? 'Registrarse' : 'Iniciar Sesión'}
-        </motion.button>
+        </button>
         <p style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginTop: '15px', fontSize: '14px' }}>
           {isRegister ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?'}{' '}
-          <motion.span
-            whileHover={{ color: 'var(--cian-suave)' }}
+          <span
+            className="link"
             style={{ color: 'var(--azul-cielo)', cursor: 'pointer' }}
             onClick={() => setIsRegister(!isRegister)}
           >
             {isRegister ? 'Inicia sesión' : 'Regístrate'}
-          </motion.span>
+          </span>
         </p>
-      </motion.form>
-    </motion.div>
+      </form>
+    </div>
   );
 };
 

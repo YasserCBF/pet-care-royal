@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
 import { collection, getDocs, addDoc, query, where } from 'firebase/firestore';
-import { motion } from 'framer-motion';
 
 const BookingForm = () => {
   const [pets, setPets] = useState([]);
@@ -68,10 +67,7 @@ const BookingForm = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+    <div
       style={{
         background: 'linear-gradient(135deg, var(--azul-cielo), var(--menta-suave))',
         padding: '40px 20px',
@@ -80,12 +76,9 @@ const BookingForm = () => {
         minHeight: '100vh',
       }}
     >
-      <motion.form
+      <form
         onSubmit={handleSubmit}
         className="form-container"
-        initial={{ scale: 0.9 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.5 }}
         style={{
           background: 'var(--blanco-crema)',
           padding: '40px',
@@ -93,16 +86,13 @@ const BookingForm = () => {
           boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)',
           maxWidth: '500px',
           width: '100%',
-          backdropFilter: 'blur(10px)',
         }}
       >
         <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginBottom: '20px', fontSize: '24px' }}>
           Crear Reserva - Pet Care Royal
         </h2>
         {error && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+          <p
             style={{
               background: 'var(--coral-suave)',
               color: 'var(--gris-oscuro)',
@@ -113,12 +103,10 @@ const BookingForm = () => {
             }}
           >
             {error}
-          </motion.p>
+          </p>
         )}
         {success && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+          <p
             style={{
               background: 'var(--menta-suave)',
               color: 'var(--gris-oscuro)',
@@ -129,12 +117,10 @@ const BookingForm = () => {
             }}
           >
             {success}
-          </motion.p>
+          </p>
         )}
         {loading ? (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+          <p
             style={{
               color: 'var(--gris-oscuro)',
               textAlign: 'center',
@@ -142,7 +128,7 @@ const BookingForm = () => {
             }}
           >
             Cargando datos...
-          </motion.p>
+          </p>
         ) : (
           <>
             <div style={{ marginBottom: '20px' }}>
@@ -228,10 +214,8 @@ const BookingForm = () => {
                 disabled={loading}
               />
             </div>
-            <motion.button
+            <button
               type="submit"
-              whileHover={{ scale: loading ? 1 : 1.05 }}
-              whileTap={{ scale: loading ? 1 : 0.95 }}
               style={{
                 background: 'linear-gradient(90deg, var(--oro-suave), var(--melocoton-suave))',
                 color: 'var(--gris-oscuro)',
@@ -247,11 +231,11 @@ const BookingForm = () => {
               disabled={loading}
             >
               {loading ? 'Cargando...' : 'Reservar'}
-            </motion.button>
+            </button>
           </>
         )}
-      </motion.form>
-    </motion.div>
+      </form>
+    </div>
   );
 };
 

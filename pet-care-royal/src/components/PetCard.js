@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { motion } from 'framer-motion';
 
 const PetCard = () => {
   const [pets, setPets] = useState([]);
@@ -42,19 +41,12 @@ const PetCard = () => {
   }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      style={{ background: 'var(--blanco-crema)', padding: '40px 20px' }}
-    >
+    <div style={{ background: 'var(--blanco-crema)', padding: '40px 20px' }}>
       <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginBottom: '30px', fontSize: '28px' }}>
         Mis Mascotas - Pet Care Royal
       </h2>
       {error && (
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+        <p
           style={{
             background: 'var(--coral-suave)',
             color: 'var(--gris-oscuro)',
@@ -66,12 +58,10 @@ const PetCard = () => {
           }}
         >
           {error}
-        </motion.p>
+        </p>
       )}
       {loading ? (
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+        <p
           style={{
             color: 'var(--gris-oscuro)',
             textAlign: 'center',
@@ -79,11 +69,9 @@ const PetCard = () => {
           }}
         >
           Cargando mascotas...
-        </motion.p>
+        </p>
       ) : pets.length === 0 ? (
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+        <p
           style={{
             color: 'var(--gris-oscuro)',
             textAlign: 'center',
@@ -91,16 +79,13 @@ const PetCard = () => {
           }}
         >
           No tienes mascotas registradas.
-        </motion.p>
+        </p>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', maxWidth: '1200px', margin: '0 auto' }}>
           {pets.map((pet) => (
-            <motion.div
+            <div
               key={pet.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 * pets.indexOf(pet) }}
-              whileHover={{ scale: 1.05, boxShadow: '0 12px 24px rgba(0, 0, 0, 0.15)' }}
+              className="pet-card"
               style={{
                 background: 'var(--menta-suave)',
                 borderRadius: '15px',
@@ -130,11 +115,11 @@ const PetCard = () => {
               {pet.breed && <p style={{ color: 'var(--gris-oscuro)', fontSize: '14px', margin: '5px 0' }}>Raza: {pet.breed}</p>}
               {pet.age && <p style={{ color: 'var(--gris-oscuro)', fontSize: '14px', margin: '5px 0' }}>Edad: {pet.age} años</p>}
               {pet.specialNeeds && <p style={{ color: 'var(--gris-oscuro)', fontSize: '14px', margin: '5px 0' }}>Necesidades: {pet.specialNeeds}</p>}
-            </motion.div>
+            </div>
           ))}
         </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 
