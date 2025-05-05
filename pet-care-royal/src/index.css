@@ -120,7 +120,39 @@ input:focus, select:focus, textarea:focus {
   flex: 2;
   display: flex;
   justify-content: center;
-  gap: 35px;
+  gap: 20px;
+}
+
+.nav-center .relative button {
+  background: linear-gradient(45deg, var(--oro-suave), var(--melocoton-suave));
+  color: var(--gris-oscuro);
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  -webkit-text-stroke: 0.3px #000000;
+}
+
+.nav-center .relative button:hover {
+  background: linear-gradient(45deg, var(--rosa-vibrante), var(--cian-suave));
+  color: var(--blanco-crema);
+}
+
+.nav-center .relative div {
+  background: var(--blanco-crema);
+  border: 2px solid var(--lavanda-claro);
+  border-radius: 15px;
+}
+
+.nav-center .relative div a {
+  color: var(--gris-oscuro);
+  font-size: 14px;
+  font-weight: 500;
+  -webkit-text-stroke: 0.2px #000000;
+}
+
+.nav-center .relative div a:hover {
+  background: var(--menta-suave);
+  color: var(--gris-oscuro);
 }
 
 .nav-center a {
@@ -156,6 +188,8 @@ input:focus, select:focus, textarea:focus {
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
 }
 
 .login-button {
@@ -269,6 +303,31 @@ input:focus, select:focus, textarea:focus {
 .service-card:hover .icon {
   opacity: 1;
   transform: scale(1.2);
+}
+
+/* Estilos para las cartas de mascotas (PetCard) */
+.pet-card {
+  position: relative;
+  background: var(--menta-suave);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.pet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.pet-card img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  border: 2px solid var(--lavanda-claro);
 }
 
 /* Estilos para la sección de reservas */
@@ -462,6 +521,55 @@ section {
   margin: 0 auto;
 }
 
+/* Estilos para la sección de reseñas */
+#reviews div {
+  background: var(--blanco-crema);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+#reviews div:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+#reviews p {
+  color: var(--gris-oscuro);
+  font-style: italic;
+}
+
+#reviews p:last-child {
+  color: var(--rosa-vibrante);
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Estilos para la sección de contacto */
+#contact {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--menta-suave);
+}
+
+#contact a {
+  background: var(--oro-suave);
+  color: var(--gris-oscuro);
+  padding: 12px 24px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+#contact a:hover {
+  background: var(--rosa-vibrante);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
 iframe {
   border: 3px solid var(--lavanda-claro);
   border-radius: 15px;
@@ -487,12 +595,33 @@ iframe {
   }
 
   .nav-center {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 12px;
-    gap: 18px;
+  }
+
+  .nav-center .relative {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-center .relative button {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .nav-center .relative div {
+    position: static;
+    width: 100%;
+    max-width: 200px;
+    margin: 5px auto;
   }
 
   .login-container {
     justify-content: center;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .logo-text {
@@ -532,5 +661,18 @@ iframe {
   .form-button {
     font-size: 15px;
     padding: 10px;
+  }
+
+  #reviews div {
+    padding: 15px;
+  }
+
+  #contact {
+    padding: 30px 15px;
+  }
+
+  #contact a {
+    padding: 10px 20px;
+    font-size: 14px;
   }
 }

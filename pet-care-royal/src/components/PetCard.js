@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 
 const PetCard = () => {
   const [pets, setPets] = useState([]);
@@ -94,6 +95,14 @@ const PetCard = () => {
                 textAlign: 'center',
                 transition: 'all 0.3s ease',
               }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-5px)';
+                e.currentTarget.style.boxShadow = '0 6px 15px rgba(0, 0, 0, 0.2)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
+              }}
             >
               <img
                 src={pet.image}
@@ -115,6 +124,25 @@ const PetCard = () => {
               {pet.breed && <p style={{ color: 'var(--gris-oscuro)', fontSize: '14px', margin: '5px 0' }}>Raza: {pet.breed}</p>}
               {pet.age && <p style={{ color: 'var(--gris-oscuro)', fontSize: '14px', margin: '5px 0' }}>Edad: {pet.age} años</p>}
               {pet.specialNeeds && <p style={{ color: 'var(--gris-oscuro)', fontSize: '14px', margin: '5px 0' }}>Necesidades: {pet.specialNeeds}</p>}
+              {pet.healthStatus && <p style={{ color: 'var(--gris-oscuro)', fontSize: '14px', margin: '5px 0' }}>Salud: {pet.healthStatus}</p>}
+              <Link
+                to={`/edit-pet/${pet.id}`}
+                style={{
+                  background: 'var(--oro-suave)',
+                  color: 'var(--gris-oscuro)',
+                  padding: '8px 16px',
+                  borderRadius: '10px',
+                  textDecoration: 'none',
+                  fontSize: '14px',
+                  marginTop: '10px',
+                  display: 'inline-block',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseOver={(e) => e.target.style.background = 'var(--rosa-vibrante)'}
+                onMouseOut={(e) => e.target.style.background = 'var(--oro-suave)'}
+              >
+                Editar Mascota
+              </Link>
             </div>
           ))}
         </div>

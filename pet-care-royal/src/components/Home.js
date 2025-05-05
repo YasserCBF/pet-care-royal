@@ -8,8 +8,9 @@ import { collection, getDocs } from 'firebase/firestore';
 const Home = () => {
   const [services, setServices] = useState([]);
   const [error, setError] = useState('');
+  const [filter, setFilter] = useState('all');
+  const [filteredServices, setFilteredServices] = useState([]);
 
-  // Servicios estáticos con imágenes específicas y emojis para iconos
   const staticServices = [
     {
       id: 'paseo',
@@ -18,6 +19,7 @@ const Home = () => {
       price: 15,
       image: 'https://img.freepik.com/free-photo/portrait-adorable-beagle-walking-city_23-2151793685.jpg?t=st=1746408927~exp=1746412527~hmac=a1337bbf9ebdedcb9c44ef02171e26007756d4530ff9937b42a06cd38aa6b774&w=900',
       icon: '🐾',
+      category: 'Paseo',
     },
     {
       id: 'baño',
@@ -26,6 +28,7 @@ const Home = () => {
       price: 25,
       image: 'https://img.freepik.com/free-photo/close-up-portrait-yorkshire-dog_23-2151779200.jpg?t=st=1746409000~exp=1746412600~hmac=5f296cef51549826899ad590bfb765ce0832e1d00e222fa84c21744426cef2db&w=740',
       icon: '🛁',
+      category: 'Baño',
     },
     {
       id: 'corte',
@@ -34,6 +37,7 @@ const Home = () => {
       price: 20,
       image: 'https://img.freepik.com/free-photo/close-up-portrait-yorkshire-dog_23-2151779159.jpg?t=st=1746409101~exp=1746412701~hmac=955e50371e668df3aeb8f2ac5532a97dfa374b28b8f955d627c2d145de662250&w=900',
       icon: '✂️',
+      category: 'Corte',
     },
     {
       id: 'guarderia',
@@ -42,6 +46,7 @@ const Home = () => {
       price: 30,
       image: 'https://img.freepik.com/premium-photo/veterinary-team-with-pets_1025557-13021.jpg',
       icon: '🏡',
+      category: 'Guardería',
     },
   ];
 
@@ -53,7 +58,8 @@ const Home = () => {
         const fetchedServices = servicesSnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
-          icon: '🐕', // Ícono por defecto para servicios de Firestore
+          icon: '🐕',
+          category: doc.data().category || 'Otros',
         }));
         setServices([...staticServices, ...fetchedServices]);
       } catch (err) {
@@ -62,6 +68,16 @@ const Home = () => {
     };
     fetchServices();
   }, []);
+
+  useEffect(() => {
+    if (filter === 'all') {
+      setFilteredServices(services);
+    } else if (filter === 'price-low') {
+      setFilteredServices([...services].sort((a, b) => a.price - b.price));
+    } else {
+      setFilteredServices(services.filter(service => service.category === filter));
+    }
+  }, [filter, services]);
 
   return (
     <div>
@@ -85,8 +101,22 @@ const Home = () => {
             {error}
           </p>
         )}
+        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            style={{ padding: '8px', borderRadius: '10px', border: '2px solid var(--lavanda-claro)' }}
+          >
+            <option value="all">Todos</option>
+            <option value="Paseo">Paseo</option>
+            <option value="Baño">Baño</option>
+            <option value="Corte">Corte</option>
+            <option value="Guardería">Guardería</option>
+            <option value="price-low">Precio: Bajo a Alto</option>
+          </select>
+        </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '25px' }}>
-          {services.map((service) => (
+          {filteredServices.map((service) => (
             <div
               key={service.id}
               className="service-card"
@@ -156,6 +186,43 @@ const Home = () => {
       </section>
       <section id="pets">
         <PetCard />
+      </section>
+      <section id="reviews">
+        <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginBottom: '40px', fontSize: '32px' }}>
+          Lo que dicen nuestros clientes
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', maxWidth: '900px', margin: '0 auto' }}>
+          <div style={{ background: 'var(--blanco-crema)', padding: '20px', borderRadius: '15px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
+            <p style={{ color: 'var(--gris-oscuro)', fontStyle: 'italic' }}>"¡El baño fue increíble! Mi perro quedó feliz."</p>
+            <p style={{ color: 'var(--rosa-vibrante)', fontWeight: 'bold', marginTop: '10px' }}>- Ana G.</p>
+          </div>
+          <div style={{ background: 'var(--blanco-crema)', padding: '20px', borderRadius: '15px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
+            <p style={{ color: 'var(--gris-oscuro)', fontStyle: 'italic' }}>"El paseo fue perfecto, muy recomendado."</p>
+            <p style={{ color: 'var(--rosa-vibrante)', fontWeight: 'bold', marginTop: '10px' }}>- Juan P.</p>
+          </div>
+        </div>
+      </section>
+      <section id="contact" style={{ textAlign: 'center', padding: '40px 20px', background: 'var(--menta-suave)' }}>
+        <h2 style={{ color: 'var(--gris-oscuro)', marginBottom: '20px', fontSize: '32px' }}>Contáctanos</h2>
+        <a
+          href="https://wa.me/913852768"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            background: 'var(--oro-suave)',
+            color: 'var(--gris-oscuro)',
+            padding: '12px 24px',
+            borderRadius: '20px',
+            textDecoration: 'none',
+            fontWeight: '600',
+            boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseOver={(e) => e.target.style.background = 'var(--rosa-vibrante)'}
+          onMouseOut={(e) => e.target.style.background = 'var(--oro-suave)'}
+        >
+          Escríbenos por WhatsApp
+        </a>
       </section>
     </div>
   );
