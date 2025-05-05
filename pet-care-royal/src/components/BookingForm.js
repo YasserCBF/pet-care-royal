@@ -8,6 +8,7 @@ const BookingForm = () => {
   const [selectedPet, setSelectedPet] = useState('');
   const [selectedService, setSelectedService] = useState('');
   const [date, setDate] = useState('');
+  const [notes, setNotes] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(true);
@@ -44,21 +45,33 @@ const BookingForm = () => {
     setLoading(true);
     setError('');
     setSuccess('');
+
+    // Validar fecha futura
+    const selectedDate = new Date(date);
+    const now = new Date();
+    if (selectedDate <= now) {
+      setError('Por favor, selecciona una fecha y hora futura');
+      setLoading(false);
+      return;
+    }
+
     try {
       const user = auth.currentUser;
       if (!user) throw new Error('No autenticado');
       await addDoc(collection(db, 'bookings'), {
         pet: selectedPet,
         service: selectedService,
-        date: new Date(date),
+        date: selectedDate,
+        notes: notes.trim() || 'Sin notas',
         status: 'pending',
         client: user.uid,
         createdAt: new Date(),
       });
-      setSuccess('Reserva creada con éxito');
+      setSuccess('¡Reserva creada con éxito!');
       setSelectedPet('');
       setSelectedService('');
       setDate('');
+      setNotes('');
     } catch (err) {
       setError(err.message || 'Error al crear la reserva');
     } finally {
@@ -67,116 +80,60 @@ const BookingForm = () => {
   };
 
   return (
-    <div
-      style={{
-        background: 'linear-gradient(135deg, var(--azul-cielo), var(--menta-suave))',
-        padding: '40px 20px',
-        display: 'flex',
-        justifyContent: 'center',
-        minHeight: '100vh',
-      }}
-    >
-      <form
-        onSubmit={handleSubmit}
-        className="form-container"
-        style={{
-          background: 'var(--blanco-crema)',
-          padding: '40px',
-          borderRadius: '15px',
-          boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)',
-          maxWidth: '500px',
-          width: '100%',
-        }}
-      >
-        <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginBottom: '20px', fontSize: '24px' }}>
-          Crear Reserva - Pet Care Royal
-        </h2>
+    <div className="booking-section">
+      <form onSubmit={handleSubmit} className="booking-form form-container">
+        <h2 className="form-title">Reservar un Servicio</h2>
         {error && (
-          <p
-            style={{
-              background: 'var(--coral-suave)',
-              color: 'var(--gris-oscuro)',
-              padding: '10px',
-              borderRadius: '8px',
-              marginBottom: '20px',
-              textAlign: 'center',
-            }}
-          >
+          <p className="form-message form-message--error">
             {error}
           </p>
         )}
         {success && (
-          <p
-            style={{
-              background: 'var(--menta-suave)',
-              color: 'var(--gris-oscuro)',
-              padding: '10px',
-              borderRadius: '8px',
-              marginBottom: '20px',
-              textAlign: 'center',
-            }}
-          >
+          <p className="form-message form-message--success">
             {success}
           </p>
         )}
         {loading ? (
-          <p
-            style={{
-              color: 'var(--gris-oscuro)',
-              textAlign: 'center',
-              fontSize: '16px',
-            }}
-          >
+          <div className="form-loading">
+            <span className="spinner"></span>
             Cargando datos...
-          </p>
+          </div>
         ) : (
           <>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ color: 'var(--gris-oscuro)', fontWeight: '400', display: 'block', marginBottom: '5px' }}>
+            <div className="form-group">
+              <label className="form-label" htmlFor="pet">
                 Mascota
               </label>
               <select
+                id="pet"
                 value={selectedPet}
                 onChange={(e) => setSelectedPet(e.target.value)}
-                style={{
-                  background: 'var(--gris-perla)',
-                  border: '1px solid var(--lavanda-claro)',
-                  padding: '12px',
-                  borderRadius: '8px',
-                  width: '100%',
-                  color: 'var(--gris-oscuro)',
-                  fontSize: '16px',
-                }}
+                className="form-input"
                 required
                 disabled={loading || pets.length === 0}
               >
                 <option value="">Selecciona una mascota</option>
                 {pets.map((pet) => (
-                  <option key={pet.id} value={pet.id}>{pet.name}</option>
+                  <option key={pet.id} value={pet.id}>
+                    {pet.name}
+                  </option>
                 ))}
               </select>
               {pets.length === 0 && (
-                <p style={{ color: 'var(--coral-suave)', fontSize: '12px', marginTop: '5px' }}>
+                <p className="form-hint">
                   No hay mascotas registradas.
                 </p>
               )}
             </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ color: 'var(--gris-oscuro)', fontWeight: '400', display: 'block', marginBottom: '5px' }}>
+            <div className="form-group">
+              <label className="form-label" htmlFor="service">
                 Servicio
               </label>
               <select
+                id="service"
                 value={selectedService}
                 onChange={(e) => setSelectedService(e.target.value)}
-                style={{
-                  background: 'var(--gris-perla)',
-                  border: '1px solid var(--lavanda-claro)',
-                  padding: '12px',
-                  borderRadius: '8px',
-                  width: '100%',
-                  color: 'var(--gris-oscuro)',
-                  fontSize: '16px',
-                }}
+                className="form-input"
                 required
                 disabled={loading || services.length === 0}
               >
@@ -188,49 +145,49 @@ const BookingForm = () => {
                 ))}
               </select>
               {services.length === 0 && (
-                <p style={{ color: 'var(--coral-suave)', fontSize: '12px', marginTop: '5px' }}>
+                <p className="form-hint">
                   No hay servicios disponibles.
                 </p>
               )}
             </div>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ color: 'var(--gris-oscuro)', fontWeight: '400', display: 'block', marginBottom: '5px' }}>
+            <div className="form-group">
+              <label className="form-label" htmlFor="date">
                 Fecha y Hora
               </label>
               <input
+                id="date"
                 type="datetime-local"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                style={{
-                  background: 'var(--gris-perla)',
-                  border: '1px solid var(--lavanda-claro)',
-                  padding: '12px',
-                  borderRadius: '8px',
-                  width: '100%',
-                  color: 'var(--gris-oscuro)',
-                  fontSize: '16px',
-                }}
+                className="form-input"
                 required
+                disabled={loading}
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor="notes">
+                Notas Adicionales (Opcional)
+              </label>
+              <textarea
+                id="notes"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                className="form-input form-textarea"
+                rows="4"
+                placeholder="Ej. 'Mi perro necesita un champú hipoalergénico'"
                 disabled={loading}
               />
             </div>
             <button
               type="submit"
-              style={{
-                background: 'linear-gradient(90deg, var(--oro-suave), var(--melocoton-suave))',
-                color: 'var(--gris-oscuro)',
-                padding: '12px',
-                borderRadius: '8px',
-                border: 'none',
-                cursor: loading ? 'not-allowed' : 'pointer',
-                width: '100%',
-                fontSize: '16px',
-                fontWeight: '600',
-                opacity: loading ? 0.7 : 1,
-              }}
+              className="form-button"
               disabled={loading}
             >
-              {loading ? 'Cargando...' : 'Reservar'}
+              {loading ? (
+                <span className="spinner"></span>
+              ) : (
+                'Reservar Ahora'
+              )}
             </button>
           </>
         )}
