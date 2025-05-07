@@ -1,6 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap');
+/* Importación de fuentes mágicas y elegantes */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap');
 
+/* Definición de variables para un diseño mágico */
 :root {
+  /* Colores base */
   --rosa-pastel: #F8E1E9;
   --azul-cielo: #D4E6F1;
   --menta-suave: #D5F5E3;
@@ -15,14 +18,46 @@
   --rosa-vibrante: #F4A7C4;
   --azul-suave: #A9CCE3;
   --verde-lima: #B2E4C8;
+
+  /* Nuevos colores para efectos mágicos */
+  --purpura-magico: #9B59B6;
+  --azul-estrella: #3498DB;
+  --oro-brillante: #FFD700;
+  --rosa-aurora: #FF69B4;
+  --verde-aurora: #2ECC71;
+  --naranja-aurora: #FF8C00;
+
+  /* Tamaños y espaciados */
+  --spacing-small: 5px;
+  --spacing-medium: 10px; /* Reducido para un diseño más compacto */
+  --spacing-large: 25px;
+  --spacing-xlarge: 40px;
+  --card-height: 420px;
+  --card-width: 280px;
+  --icon-size: 40px;
+  --image-size: 200px;
+
+  /* Sombras y brillos */
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 15px rgba(255, 215, 0, 0.5);
+  --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.15);
+  --shadow-magic: 0 0 20px rgba(155, 89, 182, 0.5);
+
+  /* Tiempos de animación */
+  --transition-fast: 0.2s;
+  --transition-medium: 0.5s;
+  --transition-slow: 1s;
+  --animation-long: 20s;
 }
 
+/* Estilos básicos del documento */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Estilo del cuerpo con fondo mágico */
 body {
   font-family: 'Poppins', sans-serif;
   color: var(--gris-oscuro);
@@ -33,6 +68,7 @@ body {
   overflow-x: hidden;
 }
 
+/* Fondo mágico con gradiente animado */
 body::before {
   content: '';
   position: fixed;
@@ -40,10 +76,31 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, var(--menta-suave), var(--azul-cielo), var(--rosa-pastel), var(--lavanda-claro));
-  background-size: 150% 150%;
-  animation: globalBlend 25s ease infinite;
+  background: linear-gradient(45deg, var(--rosa-pastel), var(--azul-cielo), var(--menta-suave), var(--lavanda-claro), var(--rosa-aurora), var(--verde-aurora));
+  background-size: 400% 400%;
+  animation: magicalGradient 15s ease infinite;
+  z-index: -2;
+  opacity: 0.9;
+}
+
+/* Partículas flotantes mágicas */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M10 2L12 8L18 9L13 13L14 18L10 15L6 18L7 13L2 9L8 8L10 2Z" fill="%23FFD700" opacity="0.8"/></svg>') repeat;
+  background-size: 40px 40px;
+  opacity: 0.3;
+  animation: floatStars 30s linear infinite;
   z-index: -1;
+}
+
+/* Capa adicional para partículas más pequeñas */
+body {
+  position: relative;
 }
 
 body::after {
@@ -53,86 +110,74 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23F4A7C4" opacity="0.6"/></svg>') repeat;
-  background-size: 50px 50px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="1" fill="%23FF69B4" opacity="0.6"/></svg>') repeat;
+  background-size: 20px 20px;
   opacity: 0.2;
-  animation: floatParticles 15s linear infinite;
+  animation: floatParticles 20s linear infinite;
   z-index: -1;
 }
 
-@keyframes globalBlend {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  100% {
-    background-position: 0% 0%;
-  }
+/* Animaciones del fondo */
+@keyframes magicalGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floatStars {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
 }
 
 @keyframes floatParticles {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 50px 50px;
-  }
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 20px; }
 }
 
+/* Estilos generales para tipografía */
 h1, h2, h3 {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
   letter-spacing: 0.5px;
+  color: var(--gris-oscuro);
   position: relative;
-  background: linear-gradient(45deg, var(--rosa-vibrante), var(--cian-suave), var(--oro-suave));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  transition: background 1s ease;
 }
 
-h1:hover, h2:hover, h3:hover {
-  background: linear-gradient(45deg, var(--cian-suave), var(--oro-suave), var(--rosa-vibrante));
+/* Efecto mágico en los títulos */
+h2::before {
+  content: '✨';
+  position: absolute;
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  animation: sparkle 2s ease infinite;
 }
 
+h2::after {
+  content: '✨';
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  animation: sparkle 2s ease infinite 0.5s;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: translateY(-50%) scale(0.8); }
+  50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+}
+
+/* Estilos para botones e inputs */
 button, input, select, textarea {
   font-family: 'Poppins', sans-serif;
-  transition: all 0.3s ease;
+  transition: all var(--transition-medium) ease;
 }
 
 button:hover, a:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-  position: relative;
-}
-
-button:hover::after, a:hover::after {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  border-radius: 20px;
-  background: linear-gradient(45deg, var(--rosa-vibrante), var(--cian-suave));
-  filter: blur(10px);
-  opacity: 0.5;
-  z-index: -1;
-  animation: glow 1.5s ease infinite;
-}
-
-@keyframes glow {
-  0% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0.5;
-  }
+  box-shadow: var(--shadow-hover);
 }
 
 input:focus, select:focus, textarea:focus {
@@ -141,11 +186,11 @@ input:focus, select:focus, textarea:focus {
   border-color: var(--cian-suave);
 }
 
-/* Estilos del header */
+/* Estilos del Header */
 .header {
-  background: linear-gradient(90deg, var(--rosa-vibrante), var(--azul-suave));
-  padding: 20px 40px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(90deg, var(--rosa-vibrante), var(--azul-suave), var(--purpura-magico));
+  padding: var(--spacing-large) 40px;
+  box-shadow: var(--shadow-soft);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -155,215 +200,455 @@ input:focus, select:focus, textarea:focus {
   flex-wrap: wrap;
 }
 
+/* Logo del Header */
 .logo {
   flex: 1;
 }
 
 .logo-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 24px;
-  font-weight: 700;
+  font-family: 'Great Vibes', cursive;
+  font-size: 28px;
+  font-weight: 400;
   text-decoration: none;
-  background: linear-gradient(45deg, var(--rosa-vibrante), var(--cian-suave));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-stroke: 0.5px #000000;
+  color: var(--gris-oscuro);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-medium) ease;
+  position: relative;
 }
 
 .logo-text:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
+  color: var(--oro-brillante);
 }
 
+/* Efecto mágico en el logo */
+.logo-text::before {
+  content: '🐾';
+  position: absolute;
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  animation: bounce 1.5s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(-50%) scale(1); }
+  50% { transform: translateY(-50%) scale(1.3); }
+}
+
+/* Navegación central */
 .nav-center {
   flex: 2;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: var(--spacing-medium); /* Reducido para un diseño más compacto */
+  align-items: center;
 }
 
-.nav-center .relative button {
-  background: linear-gradient(45deg, var(--oro-suave), var(--melocoton-suave));
+/* Contenedor relativo para el menú desplegable */
+.relative {
+  position: relative;
+}
+
+/* Botón de navegación y login */
+.login-button {
+  background: linear-gradient(135deg, var(--oro-suave), var(--melocoton-suave));
   color: var(--gris-oscuro);
   border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
-  -webkit-text-stroke: 0.3px #000000;
+  border: none;
+  transition: all var(--transition-medium) ease;
+  position: relative;
+  padding: var(--spacing-small) var(--spacing-medium);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-soft);
 }
 
-.nav-center .relative button:hover {
-  background: linear-gradient(45deg, var(--rosa-vibrante), var(--cian-suave));
+.login-button:hover {
+  background: linear-gradient(135deg, var(--rosa-vibrante), var(--purpura-magico));
   color: var(--blanco-crema);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
 }
 
-.nav-center .relative div {
-  background: var(--blanco-crema);
+/* Efecto de chispa en botones */
+.login-button::after {
+  content: '✨';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity var(--transition-fast) ease;
+}
+
+.login-button:hover::after {
+  opacity: 1;
+  animation: sparkle 1s ease infinite;
+}
+
+/* Menú desplegable */
+.relative div {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: var(--spacing-small);
+  background: var(--menta-suave);
   border: 2px solid var(--lavanda-claro);
   border-radius: 15px;
+  padding: var(--spacing-small);
+  box-shadow: var(--shadow-soft);
+  z-index: 10;
+  min-width: 150px;
+  display: none;
+  animation: fadeIn 0.3s ease;
 }
 
-.nav-center .relative div a {
+.relative:hover div,
+.relative:focus-within div {
+  display: block;
+}
+
+.relative div button {
   color: var(--gris-oscuro);
   font-size: 14px;
   font-weight: 500;
-  -webkit-text-stroke: 0.2px #000000;
-}
-
-.nav-center .relative div a:hover {
-  background: var(--menta-suave);
-  color: var(--gris-oscuro);
-}
-
-.nav-center a {
-  color: var(--gris-oscuro);
+  padding: var(--spacing-small) var(--spacing-medium);
+  display: block;
   text-decoration: none;
-  font-size: 15px;
-  font-weight: 600;
-  position: relative;
-  transition: color 0.3s ease;
-  -webkit-text-stroke: 0.3px #000000;
-}
-
-.nav-center a:hover {
-  color: var(--cian-suave);
-}
-
-.nav-center a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  background: var(--cian-suave);
-  bottom: -5px;
-  left: 0;
-  transition: width 0.3s ease;
-}
-
-.nav-center a:hover::after {
+  transition: all var(--transition-medium) ease;
+  background: none;
+  border: none;
   width: 100%;
+  text-align: left;
+  border-radius: 10px;
 }
 
+.relative div button:hover {
+  background: var(--oro-suave);
+  color: var(--gris-oscuro);
+  box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* Contenedor de login */
 .login-container {
   flex: 1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-medium);
 }
 
-.login-button {
-  background: linear-gradient(45deg, var(--oro-suave), var(--melocoton-suave));
+/* Estilos para el texto de usuario */
+.login-container span {
   color: var(--gris-oscuro);
-  padding: 8px 18px;
-  border-radius: 20px;
-  text-decoration: none;
   font-size: 14px;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  -webkit-text-stroke: 0.3px #000000;
 }
 
-.login-button:hover {
-  background: linear-gradient(45deg, var(--rosa-vibrante), var(--cian-suave));
+/* Estilos para el carrusel de cartas */
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: var(--spacing-large);
+  padding: 0 var(--spacing-medium);
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rosa-vibrante) var(--blanco-crema);
+}
+
+/* Estilizar la barra de desplazamiento para Webkit */
+.carousel-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.carousel-container::-webkit-scrollbar-track {
+  background: var(--blanco-crema);
+  border-radius: 10px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb {
+  background: var(--rosa-vibrante);
+  border-radius: 10px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb:hover {
+  background: var(--purpura-magico);
+}
+
+/* Flechas del carrusel */
+.carousel-arrow {
+  background: var(--oro-suave);
+  color: var(--gris-oscuro);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-medium) ease;
+  box-shadow: var(--shadow-soft);
+}
+
+.carousel-arrow:hover {
+  background: var(--rosa-vibrante);
   color: var(--blanco-crema);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-glow);
+  transform: scale(1.1);
+}
+
+.carousel-arrow-left::before {
+  content: '←';
+}
+
+.carousel-arrow-right::before {
+  content: '→';
 }
 
 /* Estilos para las cartas de servicios */
 .service-card {
   position: relative;
-  background: var(--blanco-crema);
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: var(--spacing-medium);
+  box-shadow: var(--shadow-soft);
   text-align: center;
-  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+  height: var(--card-height);
+  flex: 0 0 calc(33.33% - 16.67px);
+  min-width: var(--card-width);
+  scroll-snap-align: center;
+  perspective: 1000px;
+  cursor: pointer;
+  transition: transform var(--transition-medium) ease, box-shadow var(--transition-medium) ease;
   overflow: hidden;
 }
 
+/* Efecto de inclinación y brillo al pasar el mouse */
 .service-card:hover {
-  transform: translateY(-10px) rotate(2deg);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(135deg, var(--rosa-vibrante), var(--azul-suave));
+  transform: translateY(-5px) rotate(2deg);
+  box-shadow: var(--shadow-hover);
 }
 
+/* Cambio de color en ambas caras al pasar el mouse */
+.service-card:hover .card-front,
+.service-card:hover .card-back {
+  background: linear-gradient(135deg, var(--rosa-pastel), var(--azul-cielo), var(--purpura-magico));
+}
+
+/* Efecto de brillo mágico al pasar el mouse */
 .service-card::before {
   content: '';
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, var(--rosa-vibrante), var(--cian-suave), var(--verde-lima));
-  z-index: -1;
-  border-radius: 22px;
-  filter: blur(5px);
-  opacity: 0.7;
-  transition: opacity 0.4s ease;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+  transition: left var(--transition-slow) ease;
+  z-index: 1;
 }
 
 .service-card:hover::before {
-  opacity: 1;
+  left: 100%;
 }
 
-.service-card img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
+/* Giro de la carta */
+.service-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Contenedor interno de la carta */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+  z-index: 0;
+}
+
+/* Caras de la carta */
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--spacing-medium);
   border-radius: 15px;
-  margin-bottom: 20px;
-  border: 3px solid var(--lavanda-claro);
-  transition: transform 0.4s ease;
+  transition: background var(--transition-medium) ease;
 }
 
-.service-card:hover img {
-  transform: scale(1.1);
-}
-
-.service-card h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  color: var(--gris-oscuro);
-  margin-bottom: 12px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.service-card p.description {
-  font-style: italic;
-  font-size: 14px;
-  color: var(--gris-oscuro);
-  margin-bottom: 15px;
-  line-height: 1.5;
-}
-
-.service-card p.price {
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--rosa-vibrante);
+/* Cara frontal */
+.card-front {
   background: var(--blanco-crema);
-  padding: 8px 15px;
-  border-radius: 20px;
-  display: inline-block;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Cara trasera */
+.card-back {
+  transform: rotateY(180deg);
+  background: var(--menta-suave);
+  color: var(--gris-oscuro);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Ícono en la parte superior */
 .service-card .icon {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 24px;
-  color: var(--cian-suave);
-  opacity: 0.8;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  color: var(--rosa-vibrante);
+  background: var(--blanco-crema);
+  border-radius: 50%;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-soft);
+  opacity: 0;
+  animation: iconFadeIn var(--transition-medium) ease forwards;
+  transition: all var(--transition-medium) ease;
+  z-index: 1;
 }
 
-.service-card:hover .icon {
+/* Animación de entrada del ícono */
+@keyframes iconFadeIn {
+  0% { opacity: 0; transform: translateX(-50%) scale(0.8); }
+  100% { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+/* Efecto de latido en el ícono */
+.service-card .icon {
+  animation: heartbeat 2s ease infinite;
+}
+
+@keyframes heartbeat {
+  0% { transform: translateX(-50%) scale(1); }
+  10% { transform: translateX(-50%) scale(1.1); }
+  20% { transform: translateX(-50%) scale(1); }
+  30% { transform: translateX(-50%) scale(1.1); }
+  40% { transform: translateX(-50%) scale(1); }
+}
+
+/* Efecto al pasar el mouse sobre el ícono */
+.service-card .icon:hover {
+  transform: translateX(-50%) scale(1.1);
+  color: var(--cian-suave);
+  box-shadow: var(--shadow-magic);
+}
+
+/* Tooltip del ícono */
+.service-card .icon::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--oro-suave);
+  color: var(--gris-oscuro);
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-medium) ease;
+  z-index: 2;
+}
+
+.service-card .icon:hover::after {
   opacity: 1;
-  transform: scale(1.2);
+  visibility: visible;
+}
+
+/* Efecto de chispa al girar */
+.service-card.flipped .icon {
+  animation: iconGlow 0.6s ease;
+}
+
+@keyframes iconGlow {
+  0% { box-shadow: var(--shadow-soft); }
+  50% { box-shadow: var(--shadow-magic); }
+  100% { box-shadow: var(--shadow-soft); }
+}
+
+/* Imagen de la carta */
+.service-card img {
+  width: var(--image-size);
+  height: var(--image-size);
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: var(--spacing-medium);
+  margin-top: var(--spacing-medium);
+  border: 3px solid var(--lavanda-claro);
+  transition: transform var(--transition-medium) ease;
+  align-self: center;
+  position: relative;
+  z-index: 0;
+}
+
+/* Efecto al pasar el mouse sobre la imagen */
+.service-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Título de la carta */
+.service-card h3 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 24px;
+  color: var(--gris-oscuro);
+  margin-bottom: var(--spacing-small);
+  position: relative;
+  opacity: 0;
+  animation: magicText 1s ease forwards;
+}
+
+/* Efecto de escritura mágica en el título */
+@keyframes magicText {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Descripción de la carta */
+.service-card p.description {
+  font-size: 14px;
+  color: var(--gris-oscuro);
+  margin-bottom: var(--spacing-small);
+  line-height: 1.5;
+  flex-grow: 1;
+  padding: 0 var(--spacing-small);
+  opacity: 0;
+  animation: magicText 1.2s ease forwards;
+}
+
+/* Botón de cerrar en la cara trasera */
+.card-back button {
+  background: var(--oro-suave);
+  color: var(--gris-oscuro);
+  padding: var(--spacing-small) var(--spacing-medium);
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: all var(--transition-medium) ease;
+}
+
+.card-back button:hover {
+  background: var(--rosa-vibrante);
+  color: var(--blanco-crema);
+  box-shadow: var(--shadow-glow);
 }
 
 /* Estilos para las cartas de mascotas (PetCard) */
@@ -371,23 +656,25 @@ input:focus, select:focus, textarea:focus {
   position: relative;
   background: var(--menta-suave);
   border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: var(--spacing-medium);
+  box-shadow: var(--shadow-soft);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all var(--transition-medium) ease;
 }
 
+/* Efecto al pasar el mouse sobre las cartas de mascotas */
 .pet-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-hover);
 }
 
+/* Imagen en las cartas de mascotas */
 .pet-card img {
-  width: 200px;
-  height: 200px;
+  width: var(--image-size);
+  height: var(--image-size);
   object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 15px;
+  margin-bottom: var(--spacing-medium);
   border: 2px solid var(--lavanda-claro);
 }
 
@@ -398,58 +685,78 @@ input:focus, select:focus, textarea:focus {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  position: relative;
 }
 
+/* Fondo mágico para la sección de reservas */
+.booking-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(155, 89, 182, 0.1), transparent);
+  z-index: -1;
+}
+
+/* Formulario de reservas */
 .booking-form {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(15px);
   border-radius: 25px;
   padding: 50px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-soft);
   max-width: 550px;
   width: 100%;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-medium) ease;
 }
 
+/* Efecto al pasar el mouse sobre el formulario */
 .booking-form:hover {
   transform: translateY(-5px);
+  box-shadow: var(--shadow-magic);
 }
 
+/* Título del formulario */
 .form-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Great Vibes', cursive;
   font-size: 28px;
   color: var(--gris-oscuro);
   text-align: center;
-  margin-bottom: 30px;
-  -webkit-text-stroke: 0.4px #000000;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: var(--spacing-large);
 }
 
+/* Mensajes del formulario */
 .form-message {
-  padding: 12px;
+  padding: var(--spacing-small);
   border-radius: 10px;
   text-align: center;
   font-size: 14px;
-  margin-bottom: 20px;
+  margin-bottom: var(--spacing-medium);
   opacity: 0;
-  animation: fadeIn 0.5s ease forwards;
+  animation: fadeIn var(--transition-medium) ease forwards;
 }
 
+/* Estilo de mensaje de error */
 .form-message--error {
   background: var(--coral-suave);
   color: var(--gris-oscuro);
 }
 
+/* Estilo de mensaje de éxito */
 .form-message--success {
   background: var(--menta-suave);
   color: var(--gris-oscuro);
 }
 
+/* Grupo de formulario */
 .form-group {
   position: relative;
-  margin-bottom: 25px;
+  margin-bottom: var(--spacing-medium);
 }
 
+/* Etiqueta del formulario */
 .form-label {
   position: absolute;
   top: 12px;
@@ -457,10 +764,10 @@ input:focus, select:focus, textarea:focus {
   font-size: 14px;
   color: var(--gris-oscuro);
   pointer-events: none;
-  transition: all 0.3s ease;
-  -webkit-text-stroke: 0.2px #000000;
+  transition: all var(--transition-medium) ease;
 }
 
+/* Animación de la etiqueta al enfocar */
 .form-input:focus + .form-label,
 .form-input:not(:placeholder-shown) + .form-label,
 .form-textarea:focus + .form-label,
@@ -473,30 +780,33 @@ input:focus, select:focus, textarea:focus {
   color: var(--rosa-vibrante);
 }
 
+/* Inputs del formulario */
 .form-input,
 .form-textarea {
   width: 100%;
-  padding: 12px 15px;
+  padding: var(--spacing-small) 15px;
   border: 2px solid var(--lavanda-claro);
   border-radius: 10px;
   background: var(--gris-perla);
   font-size: 15px;
   color: var(--gris-oscuro);
-  -webkit-text-stroke: 0.2px #000000;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color var(--transition-medium) ease, box-shadow var(--transition-medium) ease;
 }
 
+/* Efecto al enfocar inputs */
 .form-input:focus,
 .form-textarea:focus {
   border-color: var(--cian-suave);
   box-shadow: 0 0 8px rgba(174, 217, 224, 0.5);
 }
 
+/* Textarea */
 .form-textarea {
   resize: vertical;
   min-height: 100px;
 }
 
+/* Inputs deshabilitados */
 .form-input:disabled,
 .form-textarea:disabled {
   background: var(--gris-perla);
@@ -504,6 +814,7 @@ input:focus, select:focus, textarea:focus {
   cursor: not-allowed;
 }
 
+/* Texto de ayuda */
 .form-hint {
   font-size: 12px;
   color: var(--coral-suave);
@@ -511,31 +822,32 @@ input:focus, select:focus, textarea:focus {
   font-style: italic;
 }
 
+/* Botón del formulario */
 .form-button {
   width: 100%;
-  padding: 12px;
-  background: linear-gradient(45deg, var(--oro-suave), var(--melocoton-suave));
+  padding: var(--spacing-small);
+  background: var(--oro-suave);
   color: var(--gris-oscuro);
   border: none;
   border-radius: 12px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  -webkit-text-stroke: 0.3px #000000;
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition-medium) ease;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* Efecto al pasar el mouse sobre el botón */
 .form-button:hover {
-  background: linear-gradient(45deg, var(--rosa-vibrante), var(--cian-suave));
+  background: var(--rosa-vibrante);
   color: var(--blanco-crema);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-glow);
 }
 
+/* Botón deshabilitado */
 .form-button:disabled {
   background: var(--gris-perla);
   color: var(--gris-oscuro);
@@ -545,6 +857,7 @@ input:focus, select:focus, textarea:focus {
   opacity: 0.7;
 }
 
+/* Indicador de carga */
 .form-loading {
   text-align: center;
   font-size: 16px;
@@ -555,56 +868,72 @@ input:focus, select:focus, textarea:focus {
   gap: 10px;
 }
 
+/* Spinner de carga */
 .spinner {
   width: 20px;
   height: 20px;
   border: 3px solid var(--gris-oscuro);
   border-top-color: var(--rosa-vibrante);
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin var(--transition-slow) linear infinite;
 }
 
+/* Animación del spinner */
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
+/* Animación de fade-in */
 @keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
+  to { opacity: 1; }
 }
 
+/* Estilos generales para secciones */
 section {
   padding: 70px 20px;
   max-width: 1300px;
   margin: 0 auto;
+  position: relative;
+}
+
+/* Fondo mágico para cada sección */
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.05), transparent);
+  z-index: -1;
 }
 
 /* Estilos para la sección de reseñas */
 #reviews div {
   background: var(--blanco-crema);
-  padding: 20px;
+  padding: var(--spacing-medium);
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition-medium) ease;
 }
 
+/* Efecto al pasar el mouse sobre las reseñas */
 #reviews div:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-hover);
 }
 
+/* Texto de las reseñas */
 #reviews p {
   color: var(--gris-oscuro);
   font-style: italic;
 }
 
+/* Firma de las reseñas */
 #reviews p:last-child {
   color: var(--rosa-vibrante);
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: var(--spacing-small);
 }
 
 /* Estilos para la sección de contacto */
@@ -612,31 +941,49 @@ section {
   text-align: center;
   padding: 40px 20px;
   background: var(--menta-suave);
+  position: relative;
 }
 
+/* Fondo mágico para la sección de contacto */
+#contact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><path d="M7.5 1L9 5L13 6L10 9L11 13L7.5 11L4 13L5 9L2 6L6 5L7.5 1Z" fill="%23FFD700" opacity="0.5"/></svg>') repeat;
+  background-size: 30px 30px;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+/* Enlace de contacto */
 #contact a {
   background: var(--oro-suave);
   color: var(--gris-oscuro);
-  padding: 12px 24px;
+  padding: var(--spacing-small) var(--spacing-medium);
   border-radius: 20px;
   text-decoration: none;
   font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition-medium) ease;
 }
 
+/* Efecto al pasar el mouse sobre el enlace */
 #contact a:hover {
   background: var(--rosa-vibrante);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-glow);
 }
 
+/* Mapa */
 iframe {
   border: 3px solid var(--lavanda-claro);
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-soft);
 }
 
+/* Soporte para navegadores sin backdrop-filter */
 @supports not (backdrop-filter: blur(15px)) {
   .booking-form {
     background: rgba(255, 255, 255, 0.98);
@@ -652,27 +999,22 @@ iframe {
   }
 
   .logo {
-    margin-bottom: 12px;
+    margin-bottom: var(--spacing-medium);
   }
 
   .nav-center {
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
+    gap: var(--spacing-small); /* Ajustado para pantallas pequeñas */
   }
 
-  .nav-center .relative {
+  .nav-center .login-button {
     width: 100%;
     text-align: center;
-  }
-
-  .nav-center .relative button {
-    width: 100%;
     max-width: 200px;
   }
 
-  .nav-center .relative div {
+  .relative div {
     position: static;
     width: 100%;
     max-width: 200px;
@@ -682,46 +1024,27 @@ iframe {
   .login-container {
     justify-content: center;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--spacing-small);
   }
 
   .logo-text {
     font-size: 20px;
-    -webkit-text-stroke: 0.4px #000000;
   }
 
-  .nav-center a {
+  .login-container span {
     font-size: 13px;
-    -webkit-text-stroke: 0.2px #000000;
   }
 
-  .login-button {
-    padding: 7px 14px;
-    font-size: 13px;
-    -webkit-text-stroke: 0.2px #000000;
+  .service-card {
+    height: 400px;
+    min-width: 280px;
+    flex: 0 0 80%;
   }
 
-  .booking-section {
-    padding: 40px 15px;
-  }
-
-  .booking-form {
-    padding: 30px;
-    max-width: 100%;
-  }
-
-  .form-title {
-    font-size: 24px;
-  }
-
-  .form-input,
-  .form-textarea {
-    font-size: 14px;
-  }
-
-  .form-button {
-    font-size: 15px;
-    padding: 10px;
+  .carousel-arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
   }
 
   #reviews div {

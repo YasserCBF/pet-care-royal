@@ -23,6 +23,23 @@ const Header = () => {
     }
   };
 
+
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+
+  const handleServiceClick = (filter) => {
+    
+    scrollToSection('services');
+
+    setShowServices(false);
+
+  };
+
   return (
     <header className="header">
       <div className="logo">
@@ -32,37 +49,83 @@ const Header = () => {
         <div className="relative">
           <button
             onClick={() => setShowServices(!showServices)}
-            className="login-button py-1 px-3"
+            className="login-button"
+            style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
           >
             Servicios
           </button>
           {showServices && (
-            <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-2 z-10">
-              <a href="#services?filter=Paseo" className="block px-4 py-2 hover:bg-gray-200">Paseo</a>
-              <a href="#services?filter=Baño" className="block px-4 py-2 hover:bg-gray-200">Baño</a>
-              <a href="#services?filter=Corte" className="block px-4 py-2 hover:bg-gray-200">Corte</a>
-              <a href="#services?filter=Guardería" className="block px-4 py-2 hover:bg-gray-200">Guardería</a>
+            <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-2 z-10" style={{ minWidth: '150px' }}>
+              <button
+                onClick={() => handleServiceClick('Paseo')}
+                className="block px-4 py-2 hover:bg-gray-200 text-gray-800 w-full text-left"
+              >
+                Paseo
+              </button>
+              <button
+                onClick={() => handleServiceClick('Baño')}
+                className="block px-4 py-2 hover:bg-gray-200 text-gray-800 w-full text-left"
+              >
+                Baño
+              </button>
+              <button
+                onClick={() => handleServiceClick('Corte')}
+                className="block px-4 py-2 hover:bg-gray-200 text-gray-800 w-full text-left"
+              >
+                Corte
+              </button>
+              <button
+                onClick={() => handleServiceClick('Guardería')}
+                className="block px-4 py-2 hover:bg-gray-200 text-gray-800 w-full text-left"
+              >
+                Guardería
+              </button>
             </div>
           )}
         </div>
-        <a href="#about" className="login-button py-1 px-3">Nosotros</a>
-        <a href="#location" className="login-button py-1 px-3">Ubicación</a>
-        <a href="#reviews" className="login-button py-1 px-3">Reseñas</a>
-        <a href="#contact" className="login-button py-1 px-3">Contáctanos</a>
+        <button
+          onClick={() => scrollToSection('about')}
+          className="login-button"
+          style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
+        >
+          Nosotros
+        </button>
+        <button
+          onClick={() => scrollToSection('location')}
+          className="login-button"
+          style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
+        >
+          Ubicación
+        </button>
+        <button
+          onClick={() => scrollToSection('reviews')}
+          className="login-button"
+          style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
+        >
+          Reseñas
+        </button>
+        <button
+          onClick={() => scrollToSection('contact')}
+          className="login-button"
+          style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
+        >
+          Contáctanos
+        </button>
       </nav>
       <div className="login-container">
         {user ? (
           <>
-            <span className="mr-2 text-sm">{user.email || user.displayName}</span>
+            <span className="mr-2 text-sm" style={{ color: 'var(--gris-oscuro)' }}>{user.email || user.displayName}</span>
             <button
               onClick={handleLogout}
-              className="login-button py-1 px-3"
+              className="login-button"
+              style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
             >
               Cerrar Sesión
             </button>
           </>
         ) : (
-          <Link to="/login" className="login-button py-1 px-3">Iniciar Sesión</Link>
+          <Link to="/login" className="login-button" style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}>Iniciar Sesión</Link>
         )}
       </div>
     </header>

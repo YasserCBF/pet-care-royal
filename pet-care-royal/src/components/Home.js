@@ -10,6 +10,7 @@ const Home = () => {
   const [error, setError] = useState('');
   const [filter, setFilter] = useState('all');
   const [filteredServices, setFilteredServices] = useState([]);
+  const [selectedService, setSelectedService] = useState(null);
 
   const staticServices = [
     {
@@ -20,6 +21,7 @@ const Home = () => {
       image: 'https://img.freepik.com/free-photo/portrait-adorable-beagle-walking-city_23-2151793685.jpg?t=st=1746408927~exp=1746412527~hmac=a1337bbf9ebdedcb9c44ef02171e26007756d4530ff9937b42a06cd38aa6b774&w=900',
       icon: '🐾',
       category: 'Paseo',
+      details: 'Duración: 30 min. Incluye: Caminata en parque, interacción con otros perros, recogida de desechos. Beneficios: Ejercicio y socialización.',
     },
     {
       id: 'baño',
@@ -29,6 +31,7 @@ const Home = () => {
       image: 'https://img.freepik.com/free-photo/close-up-portrait-yorkshire-dog_23-2151779200.jpg?t=st=1746409000~exp=1746412600~hmac=5f296cef51549826899ad590bfb765ce0832e1d00e222fa84c21744426cef2db&w=740',
       icon: '🛁',
       category: 'Baño',
+      details: 'Duración: 1 hora. Incluye: Lavado, secado, corte de uñas. Beneficios: Pelaje sano y libre de parásitos.',
     },
     {
       id: 'corte',
@@ -38,6 +41,7 @@ const Home = () => {
       image: 'https://img.freepik.com/free-photo/close-up-portrait-yorkshire-dog_23-2151779159.jpg?t=st=1746409101~exp=1746412701~hmac=955e50371e668df3aeb8f2ac5532a97dfa374b28b8f955d627c2d145de662250&w=900',
       icon: '✂️',
       category: 'Corte',
+      details: 'Duración: 45 min. Incluye: Corte personalizado, cepillado. Beneficios: Estética y comodidad.',
     },
     {
       id: 'guarderia',
@@ -47,6 +51,17 @@ const Home = () => {
       image: 'https://img.freepik.com/premium-photo/veterinary-team-with-pets_1025557-13021.jpg',
       icon: '🏡',
       category: 'Guardería',
+      details: 'Duración: 8 horas. Incluye: Juegos, alimentación, descanso. Beneficios: Cuidado supervisado y diversión.',
+    },
+    {
+      id: 'entrenamiento',
+      name: 'Entrenamiento Básico',
+      description: 'Sesiones personalizadas para obediencia y socialización de tu mascota.',
+      price: 35,
+      image: 'https://img.freepik.com/free-photo/two-dogs-outdoors-being-trained-by-male-coach_23-2149448214.jpg?ga=GA1.1.945411470.1746408805&semt=ais_hybrid&w=740',
+      icon: '🎾',
+      category: 'Entrenamiento',
+      details: 'Duración: 1 hora por sesión. Incluye: Comandos básicos, socialización. Beneficios: Mejor comportamiento y vínculo.',
     },
   ];
 
@@ -60,6 +75,7 @@ const Home = () => {
           ...doc.data(),
           icon: '🐕',
           category: doc.data().category || 'Otros',
+          details: doc.data().details || 'Más información disponible bajo solicitud.',
         }));
         setServices([...staticServices, ...fetchedServices]);
       } catch (err) {
@@ -78,6 +94,18 @@ const Home = () => {
       setFilteredServices(services.filter(service => service.category === filter));
     }
   }, [filter, services]);
+
+  const closeDetails = () => setSelectedService(null);
+
+  const scrollLeft = () => {
+    const carousel = document.querySelector('.carousel-container');
+    carousel.scrollBy({ left: -carousel.clientWidth / 3, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    const carousel = document.querySelector('.carousel-container');
+    carousel.scrollBy({ left: carousel.clientWidth / 3, behavior: 'smooth' });
+  };
 
   return (
     <div>
@@ -112,39 +140,126 @@ const Home = () => {
             <option value="Baño">Baño</option>
             <option value="Corte">Corte</option>
             <option value="Guardería">Guardería</option>
+            <option value="Entrenamiento">Entrenamiento</option>
             <option value="price-low">Precio: Bajo a Alto</option>
           </select>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '25px' }}>
-          {filteredServices.map((service) => (
-            <div
-              key={service.id}
-              className="service-card"
-              style={{
-                position: 'relative',
-              }}
-            >
-              <span className="icon">{service.icon}</span>
-              <img
-                src={service.image}
-                alt={service.name}
+        <div style={{ position: 'relative', maxWidth: '100%', overflow: 'hidden' }}>
+          <button
+            onClick={scrollLeft}
+            className="carousel-arrow carousel-arrow-left"
+            style={{
+              position: 'absolute',
+              left: '10px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'var(--oro-suave)',
+              color: 'var(--gris-oscuro)',
+              border: 'none',
+              borderRadius: '50%',
+              width: '40px',
+              height: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              zIndex: 10,
+            }}
+          >
+            &larr;
+          </button>
+          <div
+            className="carousel-container"
+            style={{
+              display: 'flex',
+              overflowX: 'auto',
+              scrollSnapType: 'x mandatory',
+              gap: '25px',
+              padding: '0 20px',
+              scrollBehavior: 'smooth',
+              scrollbarWidth: 'thin',
+              scrollbarColor: 'var(--rosa-vibrante) var(--blanco-crema)',
+            }}
+          >
+            {filteredServices.map((service) => (
+              <div
+                key={service.id}
+                className={`service-card ${selectedService && selectedService.id === service.id ? 'flipped' : ''}`}
+                onClick={() => setSelectedService(selectedService && selectedService.id === service.id ? null : service)}
                 style={{
-                  width: '200px',
-                  height: '200px',
-                  objectFit: 'cover',
-                  borderRadius: '15px',
-                  marginBottom: '20px',
-                  border: '3px solid var(--lavanda-claro)',
+                  flex: '0 0 calc(33.33% - 16.67px)',
+                  minWidth: '280px',
+                  scrollSnapAlign: 'center',
                 }}
-                onError={(e) => {
-                  e.target.src = 'https://source.unsplash.com/200x200/?pet';
-                }}
-              />
-              <h3 style={{ fontSize: '22px', marginBottom: '12px' }}>{service.name}</h3>
-              <p className="description">{service.description}</p>
-              <p className="price">${service.price}</p>
-            </div>
-          ))}
+              >
+                <div className="card-inner">
+                  <div className="card-front">
+                    <span className="icon" data-tooltip={service.category}>{service.icon}</span>
+                    <img
+                      src={service.image}
+                      alt={service.name}
+                      style={{
+                        width: '200px',
+                        height: '200px',
+                        objectFit: 'cover',
+                        borderRadius: '15px',
+                        marginBottom: '20px',
+                        border: '3px solid var(--lavanda-claro)',
+                        alignSelf: 'center',
+                      }}
+                      onError={(e) => {
+                        e.target.src = 'https://source.unsplash.com/200x200/?pet';
+                      }}
+                    />
+                    <h3 style={{ fontSize: '22px', marginBottom: '12px', textAlign: 'center' }}>{service.name}</h3>
+                    <p className="description" style={{ flexGrow: 1, padding: '0 10px', textAlign: 'center' }}>{service.description}</p>
+                  </div>
+                  <div className="card-back">
+                    <h3 style={{ fontSize: '24px', marginBottom: '15px', textAlign: 'center' }}>{service.name}</h3>
+                    <p style={{ marginBottom: '10px', textAlign: 'center' }}>Precio: ${service.price}</p>
+                    <p style={{ marginBottom: '15px', textAlign: 'center', padding: '0 10px' }}>{service.details}</p>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); closeDetails(); }}
+                      style={{
+                        background: 'var(--oro-suave)',
+                        color: 'var(--gris-oscuro)',
+                        padding: '10px 20px',
+                        borderRadius: '20px',
+                        border: 'none',
+                        cursor: 'pointer',
+                        width: '100%',
+                      }}
+                    >
+                      Cerrar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={scrollRight}
+            className="carousel-arrow carousel-arrow-right"
+            style={{
+              position: 'absolute',
+              right: '10px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'var(--oro-suave)',
+              color: 'var(--gris-oscuro)',
+              border: 'none',
+              borderRadius: '50%',
+              width: '40px',
+              height: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              zIndex: 10,
+            }}
+          >
+            &rarr;
+          </button>
         </div>
       </section>
       <section id="about">
@@ -205,7 +320,7 @@ const Home = () => {
       <section id="contact" style={{ textAlign: 'center', padding: '40px 20px', background: 'var(--menta-suave)' }}>
         <h2 style={{ color: 'var(--gris-oscuro)', marginBottom: '20px', fontSize: '32px' }}>Contáctanos</h2>
         <a
-          href="https://wa.me/913852768"
+          href="https://wa.me/1234567890"
           target="_blank"
           rel="noopener noreferrer"
           style={{
