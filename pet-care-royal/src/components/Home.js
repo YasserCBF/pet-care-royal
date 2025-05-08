@@ -144,53 +144,19 @@ const Home = () => {
             <option value="price-low">Precio: Bajo a Alto</option>
           </select>
         </div>
-        <div style={{ position: 'relative', maxWidth: '100%', overflow: 'hidden' }}>
+        <div style={{ position: 'relative', maxWidth: '1200px', margin: '0 auto', overflow: 'hidden' }}>
           <button
             onClick={scrollLeft}
             className="carousel-arrow carousel-arrow-left"
-            style={{
-              position: 'absolute',
-              left: '10px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              background: 'var(--oro-suave)',
-              color: 'var(--gris-oscuro)',
-              border: 'none',
-              borderRadius: '50%',
-              width: '40px',
-              height: '40px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              zIndex: 10,
-            }}
           >
-            &larr;
+            ←
           </button>
-          <div
-            className="carousel-container"
-            style={{
-              display: 'flex',
-              overflowX: 'auto',
-              scrollSnapType: 'x mandatory',
-              gap: '25px',
-              padding: '0 20px',
-              scrollBehavior: 'smooth',
-              scrollbarWidth: 'thin',
-              scrollbarColor: 'var(--rosa-vibrante) var(--blanco-crema)',
-            }}
-          >
+          <div className="carousel-container">
             {filteredServices.map((service) => (
               <div
                 key={service.id}
                 className={`service-card ${selectedService && selectedService.id === service.id ? 'flipped' : ''}`}
                 onClick={() => setSelectedService(selectedService && selectedService.id === service.id ? null : service)}
-                style={{
-                  flex: '0 0 calc(33.33% - 16.67px)',
-                  minWidth: '280px',
-                  scrollSnapAlign: 'center',
-                }}
               >
                 <div className="card-inner">
                   <div className="card-front">
@@ -198,37 +164,19 @@ const Home = () => {
                     <img
                       src={service.image}
                       alt={service.name}
-                      style={{
-                        width: '200px',
-                        height: '200px',
-                        objectFit: 'cover',
-                        borderRadius: '15px',
-                        marginBottom: '20px',
-                        border: '3px solid var(--lavanda-claro)',
-                        alignSelf: 'center',
-                      }}
                       onError={(e) => {
                         e.target.src = 'https://source.unsplash.com/200x200/?pet';
                       }}
                     />
-                    <h3 style={{ fontSize: '22px', marginBottom: '12px', textAlign: 'center' }}>{service.name}</h3>
-                    <p className="description" style={{ flexGrow: 1, padding: '0 10px', textAlign: 'center' }}>{service.description}</p>
+                    <h3>{service.name}</h3>
+                    <p className="description">{service.description}</p>
                   </div>
                   <div className="card-back">
-                    <h3 style={{ fontSize: '24px', marginBottom: '15px', textAlign: 'center' }}>{service.name}</h3>
-                    <p style={{ marginBottom: '10px', textAlign: 'center' }}>Precio: ${service.price}</p>
-                    <p style={{ marginBottom: '15px', textAlign: 'center', padding: '0 10px' }}>{service.details}</p>
+                    <h3>{service.name}</h3>
+                    <p>Precio: ${service.price}</p>
+                    <p>{service.details}</p>
                     <button
                       onClick={(e) => { e.stopPropagation(); closeDetails(); }}
-                      style={{
-                        background: 'var(--oro-suave)',
-                        color: 'var(--gris-oscuro)',
-                        padding: '10px 20px',
-                        borderRadius: '20px',
-                        border: 'none',
-                        cursor: 'pointer',
-                        width: '100%',
-                      }}
                     >
                       Cerrar
                     </button>
@@ -240,25 +188,8 @@ const Home = () => {
           <button
             onClick={scrollRight}
             className="carousel-arrow carousel-arrow-right"
-            style={{
-              position: 'absolute',
-              right: '10px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              background: 'var(--oro-suave)',
-              color: 'var(--gris-oscuro)',
-              border: 'none',
-              borderRadius: '50%',
-              width: '40px',
-              height: '40px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              zIndex: 10,
-            }}
           >
-            &rarr;
+            →
           </button>
         </div>
       </section>
