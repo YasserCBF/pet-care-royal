@@ -107,6 +107,24 @@ const Home = () => {
     carousel.scrollBy({ left: carousel.clientWidth / 3, behavior: 'smooth' });
   };
 
+  // Estado para controlar las FAQs
+  const [activeFaq, setActiveFaq] = useState(null);
+
+  const faqs = [
+    {
+      question: '¿Cómo hago una reserva?',
+      answer: 'Puedes reservar fácilmente a través de nuestro formulario de reservas. Solo completa tus datos y envía la solicitud. Te contactaremos pronto para confirmar.',
+    },
+    {
+      question: '¿Cuáles son los métodos de pago?',
+      answer: 'Aceptamos pagos con tarjeta de crédito, débito y transferencias bancarias. Los detalles se proporcionarán al confirmar tu reserva.',
+    },
+    {
+      question: '¿Puedo cancelar mi reserva?',
+      answer: 'Sí, puedes cancelar con hasta 24 horas de antelación sin costo. Contáctanos a través del email para procesarlo.',
+    },
+  ];
+
   return (
     <div>
       <Header />
@@ -270,8 +288,68 @@ const Home = () => {
           Escríbenos por WhatsApp
         </a>
       </section>
+      <section id="faq" style={{ padding: '80px 20px', background: 'linear-gradient(135deg, var(--rosa-pastel), var(--blanco-crema))', position: 'relative', boxShadow: 'inset 0 0 15px var(--aura-magica)' }}>
+        <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginBottom: '40px', fontSize: '36px', fontFamily: '"Dancing Script", cursive', textShadow: '0 0 3px var(--oro-brillante)' }}>Preguntas Frecuentes</h2>
+        {faqs.map((faq, index) => (
+          <div
+            key={index}
+            style={{
+              background: 'linear-gradient(135deg, var(--blanco-crema), var(--rosa-pastel))',
+              border: '2px solid var(--oro-brillante)',
+              borderRadius: '15px',
+              marginBottom: '25px',
+              overflow: 'hidden',
+              boxShadow: 'var(--shadow-3d), 0 0 15px var(--aura-magica)',
+              transition: 'transform var(--transition-medium) ease',
+              transformStyle: 'preserve-3d',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-5px) translateZ(10px)')}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateZ(0)')}
+          >
+            <div
+              style={{
+                fontFamily: '"Dancing Script", cursive',
+                fontSize: '22px',
+                padding: '15px 25px',
+                color: 'var(--gris-oscuro)',
+                cursor: 'pointer',
+                position: 'relative',
+                textShadow: '0 0 3px var(--brillo-aurora)',
+              }}
+              onClick={() => setActiveFaq(activeFaq === index ? null : index)}
+            >
+              {faq.question}
+              <span
+                style={{
+                  position: 'absolute',
+                  right: '25px',
+                  transition: 'transform var(--transition-medium) ease',
+                  transform: activeFaq === index ? 'rotate(45deg)' : 'rotate(0deg)',
+                }}
+              >
+                +
+              </span>
+            </div>
+            <div
+              style={{
+                fontFamily: '"Caveat", cursive',
+                fontSize: '18px',
+                padding: '15px 25px',
+                color: 'var(--gris-oscuro)',
+                background: 'var(--rosa-pastel)',
+                maxHeight: activeFaq === index ? '200px' : '0',
+                overflow: 'hidden',
+                transition: 'max-height var(--transition-slow) ease',
+                textShadow: '0 0 3px rgba(255, 255, 255, 0.2)',
+              }}
+            >
+              {faq.answer}
+            </div>
+          </div>
+        ))}
+      </section>
     </div>
   );
 };
 
-export default Home;  
+export default Home;
