@@ -844,7 +844,7 @@ input:focus, select:focus, textarea:focus {
   margin-top: 8px;
   font-style: italic;
   transform: translateZ(10px);
-  text-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0 3px rgba(7, 7, 7, 0.692);
 }
 
 /* Botón del formulario */
@@ -852,7 +852,7 @@ input:focus, select:focus, textarea:focus {
   width: 100%;
   padding: var(--spacing-medium);
   background: linear-gradient(135deg, var(--rosa-pastel), var(--blanco-crema));
-  color: var(--blanco-crema);
+  color: var(--gris-oscuro);
   border: 2px solid var(--oro-brillante);
   border-radius: 15px;
   font-size: 20px;
@@ -957,7 +957,7 @@ section::before {
   color: var(--gris-oscuro);
   font-style: italic;
   transform: translateZ(10px);
-  text-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.767);
 }
 
 /* Firma de las reseñas */
