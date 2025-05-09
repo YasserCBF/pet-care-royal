@@ -15,7 +15,7 @@
   --oro-brillante: #FFF9E6; /* Suavizado para ser más pastel */
   --brillo-aurora: rgba(244, 167, 196, 0.4); /* Basado en rosa-vibrante */
   --aura-magica: rgba(248, 225, 233, 0.3); /* Basado en rosa-pastel */
-  --rosa-fuerte:rgba(226, 111, 226, 0.863);
+
   /* Tamaños y espaciados */
   --spacing-small: 5px;
   --spacing-medium: 15px;
@@ -51,7 +51,7 @@
 body {
   font-family: 'Caveat', cursive;
   color: var(--gris-oscuro);
-  min-height: 120vh;
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
@@ -67,7 +67,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(45deg, var(--gris-perla), var(--brillo-aurora), var(--blanco-crema), var(--rosa-pastel));
+  background: linear-gradient(45deg, var(--rosa-pastel), var(--rosa-vibrante), var(--blanco-crema), var(--rosa-pastel));
   background-size: 400% 400%;
   animation: magicalGradient var(--animation-long) ease infinite;
   z-index: -2;
@@ -606,7 +606,7 @@ input:focus, select:focus, textarea:focus {
   animation: magicText 1s ease forwards;
   transform: translateZ(10px);
   font-weight: 700;
-  text-shadow: 0 0 5px var(--rosa-fuerte);
+  text-shadow: 0 0 5px var(--brillo-aurora);
 }
 
 /* Efecto de escritura mágica en el título */
@@ -632,7 +632,7 @@ input:focus, select:focus, textarea:focus {
 /* Botón de cerrar en la cara trasera */
 .card-back button {
   background: linear-gradient(135deg, var(--rosa-pastel), var(--blanco-crema));
-  color: var(--gris-oscuro);
+  color: var(--blanco-crema);
   padding: var(--spacing-small) var(--spacing-large);
   border-radius: 20px;
   border: 2px solid var(--oro-brillante);
@@ -641,7 +641,7 @@ input:focus, select:focus, textarea:focus {
   transition: all var(--transition-medium) ease;
   transform: translateZ(10px);
   font-weight: 500;
-  text-shadow: 0 0 3px var(--aura-magica);
+  text-shadow: 0 0 3px var(--brillo-aurora);
 }
 
 .card-back button:hover {
@@ -844,7 +844,7 @@ input:focus, select:focus, textarea:focus {
   margin-top: 8px;
   font-style: italic;
   transform: translateZ(10px);
-  text-shadow: 0 0 3px rgba(7, 7, 7, 0.692);
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
 }
 
 /* Botón del formulario */
@@ -852,7 +852,7 @@ input:focus, select:focus, textarea:focus {
   width: 100%;
   padding: var(--spacing-medium);
   background: linear-gradient(135deg, var(--rosa-pastel), var(--blanco-crema));
-  color: var(--gris-oscuro);
+  color: var(--blanco-crema);
   border: 2px solid var(--oro-brillante);
   border-radius: 15px;
   font-size: 20px;
@@ -957,7 +957,7 @@ section::before {
   color: var(--gris-oscuro);
   font-style: italic;
   transform: translateZ(10px);
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.767);
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
 }
 
 /* Firma de las reseñas */
@@ -1004,6 +1004,74 @@ iframe {
   border: 2px solid var(--oro-brillante);
   border-radius: 15px;
   box-shadow: var(--shadow-3d), 0 0 15px var(--aura-magica);
+}
+
+/* Estilos para la sección de FAQ */
+#faq {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, var(--rosa-pastel), var(--blanco-crema));
+  position: relative;
+  box-shadow: inset 0 0 15px var(--aura-magica);
+}
+
+#faq h2 {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: var(--spacing-xlarge);
+  transform: translateZ(10px);
+}
+
+.faq-item {
+  background: linear-gradient(135deg, var(--blanco-crema), var(--rosa-pastel));
+  border: 2px solid var(--oro-brillante);
+  border-radius: 15px;
+  margin-bottom: var(--spacing-large);
+  overflow: hidden;
+  box-shadow: var(--shadow-3d), 0 0 15px var(--aura-magica);
+  transition: transform var(--transition-medium) ease;
+  transform-style: preserve-3d;
+}
+
+.faq-item:hover {
+  transform: translateY(-5px) translateZ(10px);
+  box-shadow: var(--shadow-hover), 0 0 20px var(--brillo-aurora);
+}
+
+.faq-question {
+  font-family: 'Dancing Script', cursive;
+  font-size: 22px;
+  padding: var(--spacing-medium) var(--spacing-large);
+  color: var(--gris-oscuro);
+  cursor: pointer;
+  position: relative;
+  text-shadow: 0 0 3px var(--brillo-aurora);
+}
+
+.faq-question::after {
+  content: '+';
+  position: absolute;
+  right: var(--spacing-large);
+  transition: transform var(--transition-medium) ease;
+}
+
+.faq-item.active .faq-question::after {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  padding: var(--spacing-medium) var(--spacing-large);
+  color: var(--gris-oscuro);
+  background: var(--rosa-pastel);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-slow) ease;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.faq-item.active .faq-answer {
+  max-height: 200px; /* Ajusta según el contenido */
 }
 
 /* Soporte para navegadores sin backdrop-filter */
@@ -1089,6 +1157,18 @@ iframe {
   #contact a {
     padding: 12px 28px;
     font-size: 18px;
+  }
+
+  #faq h2 {
+    font-size: 30px;
+  }
+
+  .faq-question {
+    font-size: 20px;
+  }
+
+  .faq-answer {
+    font-size: 16px;
   }
 }
 
