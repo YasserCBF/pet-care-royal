@@ -23,7 +23,6 @@ const Header = () => {
     }
   };
 
-
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -31,13 +30,9 @@ const Header = () => {
     }
   };
 
-
   const handleServiceClick = (filter) => {
-    
     scrollToSection('services');
-
     setShowServices(false);
-
   };
 
   return (
@@ -110,6 +105,13 @@ const Header = () => {
           style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
         >
           Contáctanos
+        </button>
+        <button
+          onClick={() => scrollToSection('faq')}
+          className="login-button"
+          style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
+        >
+          Preguntas Frecuentes
         </button>
       </nav>
       <div className="login-container">
