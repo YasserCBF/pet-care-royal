@@ -159,9 +159,9 @@ input:focus, select:focus, textarea:focus {
 
 /* Estilos del Header */
 .header {
-  background: linear-gradient(90deg, var(--rosa-pastel), var(--blanco-crema), var(--rosa-pastel));
+  background: var(--rosa-pastel);
   padding: var(--spacing-xlarge) 40px;
-  box-shadow: var(--shadow-3d);
+  box-shadow: var(--shadow-soft);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -169,7 +169,7 @@ input:focus, select:focus, textarea:focus {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  border-bottom: 2px solid var(--oro-brillante);
+  border-bottom: 1px solid var(--oro-brillante);
 }
 
 /* Logo del Header */
@@ -183,28 +183,13 @@ input:focus, select:focus, textarea:focus {
   font-weight: 700;
   text-decoration: none;
   color: var(--gris-oscuro);
-  text-shadow: 0 0 8px var(--oro-brillante), 0 0 3px var(--rosa-vibrante);
+  text-shadow: 0 0 3px var(--oro-brillante);
   transition: transform var(--transition-medium) ease;
-  position: relative;
 }
 
 .logo-text:hover {
   transform: scale(1.05);
   color: var(--rosa-vibrante);
-  text-shadow: 0 0 15px var(--oro-brillante), 0 0 5px var(--rosa-vibrante);
-}
-
-/* Efecto de brillo en el logo */
-.logo-text::before {
-  content: '';
-  position: absolute;
-  left: -25px;
-  top: 50%;
-  width: 15px;
-  height: 2px;
-  background: var(--rosa-vibrante);
-  transform: translateY(-50%);
-  animation: shimmer 2s ease infinite;
 }
 
 /* Navegación central */
@@ -214,60 +199,39 @@ input:focus, select:focus, textarea:focus {
   justify-content: center;
   gap: var(--spacing-large);
   align-items: center;
-}
-
-/* Contenedor relativo para el menú desplegable */
-.relative {
+  flex-wrap: wrap;
   position: relative;
 }
 
-/* Botón de navegación y login */
-.login-button {
+/* Botón de navegación */
+.nav-button {
   background: linear-gradient(135deg, var(--rosa-pastel), var(--blanco-crema));
   color: var(--gris-oscuro);
   border-radius: 25px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   border: 2px solid var(--oro-brillante);
-  transition: all var(--transition-medium) ease;
-  position: relative;
-  padding: var(--spacing-medium) var(--spacing-large);
+  padding: var(--spacing-small) var(--spacing-medium);
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-3d);
+  transition: all var(--transition-medium) ease;
+  box-shadow: var(--shadow-soft);
+  min-width: 150px;
+  text-align: center;
 }
 
-.login-button:hover {
-  background: linear-gradient(135deg, var(--rosa-vibrante), var(--rosa-pastel));
-  color: var(--gris-oscuro);
-  box-shadow: var(--shadow-glow), 0 0 15px var(--brillo-aurora);
+.nav-button:hover {
+  background: var(--rosa-vibrante);
+  color: var(--blanco-crema);
+  box-shadow: var(--shadow-glow);
   transform: translateY(-2px);
 }
 
-/* Efecto de brillo en botones */
-.login-button::after {
-  content: '';
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 10px;
-  height: 10px;
-  background: var(--rosa-vibrante);
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity var(--transition-fast) ease;
-}
-
-.login-button:hover::after {
-  opacity: 0.8;
-  animation: shimmer 1.5s ease infinite;
-}
-
 /* Menú desplegable */
-.relative div {
+.dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
@@ -276,38 +240,34 @@ input:focus, select:focus, textarea:focus {
   border: 2px solid var(--oro-brillante);
   border-radius: 15px;
   padding: var(--spacing-small);
-  box-shadow: var(--shadow-3d);
+  box-shadow: var(--shadow-soft);
   z-index: 10;
   min-width: 180px;
   display: none;
-  animation: fadeIn 0.3s ease;
 }
 
-.relative:hover div,
-.relative:focus-within div {
+.nav-center .relative:hover .dropdown-menu {
   display: block;
 }
 
-.relative div button {
+.dropdown-item {
   color: var(--gris-oscuro);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
-  padding: var(--spacing-small) var(--spacing-large);
+  padding: var(--spacing-small) var(--spacing-medium);
   display: block;
   text-decoration: none;
-  transition: all var(--transition-medium) ease;
   background: none;
   border: none;
   width: 100%;
   text-align: left;
   border-radius: 10px;
-  text-shadow: 0 0 3px var(--brillo-aurora);
+  transition: all var(--transition-medium) ease;
 }
 
-.relative div button:hover {
+.dropdown-item:hover {
   background: var(--rosa-vibrante);
-  color: var(--gris-oscuro);
-  box-shadow: inset 0 0 10px var(--brillo-aurora);
+  color: var(--blanco-crema);
   transform: translateX(5px);
 }
 
@@ -320,12 +280,36 @@ input:focus, select:focus, textarea:focus {
   gap: var(--spacing-large);
 }
 
-/* Estilos para el texto de usuario */
-.login-container span {
+/* Botón de login */
+.login-button {
+  background: linear-gradient(135deg, var(--rosa-pastel), var(--blanco-crema));
   color: var(--gris-oscuro);
+  border-radius: 25px;
   font-size: 18px;
   font-weight: 500;
-  text-shadow: 0 0 3px var(--rosa-vibrante);
+  border: 2px solid var(--oro-brillante);
+  padding: var(--spacing-small) var(--spacing-medium);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-medium) ease;
+  box-shadow: var(--shadow-soft);
+}
+
+.login-button:hover {
+  background: var(--rosa-vibrante);
+  color: var(--blanco-crema);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+/* Texto de usuario */
+.user-email {
+  color: var(--gris-oscuro);
+  font-size: 16px;
+  font-weight: 500;
 }
 
 /* Estilos para el carrusel de cartas */
@@ -1336,12 +1320,12 @@ iframe {
     gap: var(--spacing-medium);
   }
 
-  .nav-center .login-button {
+  .nav-button {
     width: 100%;
     max-width: 220px;
   }
 
-  .relative div {
+  .dropdown-menu {
     position: static;
     width: 100%;
     max-width: 220px;
