@@ -206,10 +206,7 @@ const Home = () => {
         <h2>Reservar un Servicio</h2>
         <BookingForm />
       </section>
-      <section id="pets" className="section">
-        <h2>Mascota Destacada</h2>
-        <PetCard />
-      </section>
+      
       <section id="reviews" className="section">
         <h2>Lo que Dicen Nuestros Clientes</h2>
         <div className="reviews-grid">
