@@ -12,9 +12,9 @@
   --melocoton-suave: #FFE8D6;
 
   /* Colores mágicos ajustados */
-  --oro-brillante: #FFF9E6; /* Suavizado para ser más pastel */
-  --brillo-aurora: rgba(244, 167, 196, 0.4); /* Basado en rosa-vibrante */
-  --aura-magica: rgba(248, 225, 233, 0.3); /* Basado en rosa-pastel */
+  --oro-brillante: #FFF9E6;
+  --brillo-aurora: rgba(244, 167, 196, 0.4);
+  --aura-magica: rgba(248, 225, 233, 0.3);
 
   /* Tamaños y espaciados */
   --spacing-small: 5px;
@@ -935,6 +935,90 @@ section::before {
   animation: shimmerBackground 6s ease infinite;
 }
 
+/* Estilos para la sección de consejos diarios */
+.daily-tip-section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.daily-tip-card {
+  background: linear-gradient(135deg, var(--rosa-pastel), var(--blanco-crema));
+  border-radius: 20px;
+  padding: var(--spacing-xlarge);
+  box-shadow: var(--shadow-3d), 0 0 20px var(--aura-magica);
+  max-width: 600px;
+  margin: 0 auto;
+  transition: transform var(--transition-medium) ease;
+  border: 2px solid var(--oro-brillante);
+}
+
+.daily-tip-card:hover {
+  transform: translateY(-8px) translateZ(15px);
+  box-shadow: var(--shadow-hover), 0 0 30px var(--brillo-aurora);
+}
+
+.daily-tip-card p {
+  font-size: 20px;
+  color: var(--gris-oscuro);
+  line-height: 1.6;
+  text-shadow: 0 0 3px var(--brillo-aurora);
+  opacity: 0;
+  animation: magicText 1s ease forwards;
+}
+
+/* Estilos para la sección de frases inspiradoras */
+.pet-quotes-section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.quote-card {
+  background: linear-gradient(135deg, var(--rosa-pastel), var(--melocoton-suave));
+  border-radius: 20px;
+  padding: var(--spacing-xlarge);
+  box-shadow: var(--shadow-3d), 0 0 20px var(--aura-magica);
+  max-width: 600px;
+  margin: 0 auto;
+  transition: transform var(--transition-medium) ease;
+  border: 2px solid var(--oro-brillante);
+  position: relative;
+}
+
+.quote-card:hover {
+  transform: translateY(-8px) translateZ(15px);
+  box-shadow: var(--shadow-hover), 0 0 30px var(--brillo-aurora);
+}
+
+.quote-card p {
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
+  color: var(--gris-oscuro);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-large);
+  text-shadow: 0 0 3px var(--brillo-aurora);
+  opacity: 0;
+  animation: magicText 1s ease forwards;
+}
+
+.quote-btn {
+  background: linear-gradient(135deg, var(--rosa-pastel), var(--blanco-crema));
+  color: var(--gris-oscuro);
+  border: 2px solid var(--oro-brillante);
+  border-radius: 15px;
+  padding: var(--spacing-medium) var(--spacing-large);
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-3d);
+  transition: all var(--transition-medium) ease;
+}
+
+.quote-btn:hover {
+  background: linear-gradient(135deg, var(--rosa-vibrante), var(--rosa-pastel));
+  box-shadow: var(--shadow-glow), 0 0 20px var(--brillo-aurora);
+  transform: translateY(-2px);
+}
+
 /* Estilos para la sección de reseñas */
 #reviews div {
   background: linear-gradient(135deg, var(--blanco-crema), var(--rosa-pastel));
@@ -1071,7 +1155,7 @@ iframe {
 }
 
 .faq-item.active .faq-answer {
-  max-height: 200px; /* Ajusta según el contenido */
+  max-height: 200px;
 }
 
 /* Estilos para el Chatbot */
@@ -1297,6 +1381,27 @@ iframe {
     width: 45px;
     height: 45px;
     font-size: 18px;
+  }
+
+  .daily-tip-section,
+  .pet-quotes-section {
+    padding: 40px 15px;
+  }
+
+  .daily-tip-card,
+  .quote-card {
+    padding: var(--spacing-large);
+    max-width: 100%;
+  }
+
+  .daily-tip-card p,
+  .quote-card p {
+    font-size: 18px;
+  }
+
+  .quote-btn {
+    font-size: 16px;
+    padding: var(--spacing-small) var(--spacing-medium);
   }
 
   .chatbot-container {
