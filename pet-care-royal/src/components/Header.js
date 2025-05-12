@@ -28,10 +28,6 @@ const Header = () => {
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  const handleServiceClick = (filter) => {
-    scrollToSection('services');
     setShowServices(false);
   };
 
@@ -45,71 +41,101 @@ const Header = () => {
           <button
             onClick={() => setShowServices(!showServices)}
             className="login-button"
-            style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
           >
             Servicios
           </button>
           {showServices && (
-            <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-2 z-10" style={{ minWidth: '150px' }}>
+            <div className="dropdown-menu">
               <button
-                onClick={() => handleServiceClick('Paseo')}
-                className="block px-4 py-2 hover:bg-gray-200 text-gray-800 w-full text-left"
+                onClick={() => scrollToSection('services')}
+                className="dropdown-item"
+              >
+                Todos los Servicios
+              </button>
+              <button
+                onClick={() => scrollToSection('services')}
+                className="dropdown-item"
               >
                 Paseo
               </button>
               <button
-                onClick={() => handleServiceClick('Baño')}
-                className="block px-4 py-2 hover:bg-gray-200 text-gray-800 w-full text-left"
+                onClick={() => scrollToSection('services')}
+                className="dropdown-item"
               >
                 Baño
               </button>
               <button
-                onClick={() => handleServiceClick('Corte')}
-                className="block px-4 py-2 hover:bg-gray-200 text-gray-800 w-full text-left"
+                onClick={() => scrollToSection('services')}
+                className="dropdown-item"
               >
                 Corte
               </button>
               <button
-                onClick={() => handleServiceClick('Guardería')}
-                className="block px-4 py-2 hover:bg-gray-200 text-gray-800 w-full text-left"
+                onClick={() => scrollToSection('services')}
+                className="dropdown-item"
               >
                 Guardería
+              </button>
+              <button
+                onClick={() => scrollToSection('services')}
+                className="dropdown-item"
+              >
+                Entrenamiento
               </button>
             </div>
           )}
         </div>
         <button
+          onClick={() => scrollToSection('daily-tip-section')}
+          className="login-button"
+        >
+          Consejo del Día
+        </button>
+        <button
+          onClick={() => scrollToSection('pet-quotes-section')}
+          className="login-button"
+        >
+          Frases Inspiradoras
+        </button>
+        <button
           onClick={() => scrollToSection('about')}
           className="login-button"
-          style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
         >
           Nosotros
         </button>
         <button
           onClick={() => scrollToSection('location')}
           className="login-button"
-          style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
         >
           Ubicación
         </button>
         <button
+          onClick={() => scrollToSection('bookings')}
+          className="login-button"
+        >
+          Reservas
+        </button>
+        <button
+          onClick={() => scrollToSection('pets')}
+          className="login-button"
+        >
+          Mascota Destacada
+        </button>
+        <button
           onClick={() => scrollToSection('reviews')}
           className="login-button"
-          style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
         >
           Reseñas
         </button>
         <button
           onClick={() => scrollToSection('contact')}
           className="login-button"
-          style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
         >
           Contáctanos
         </button>
         <button
           onClick={() => scrollToSection('faq')}
           className="login-button"
-          style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
         >
           Preguntas Frecuentes
         </button>
@@ -117,17 +143,16 @@ const Header = () => {
       <div className="login-container">
         {user ? (
           <>
-            <span className="mr-2 text-sm" style={{ color: 'var(--gris-oscuro)' }}>{user.email || user.displayName}</span>
+            <span className="user-email">{user.email || user.displayName}</span>
             <button
               onClick={handleLogout}
               className="login-button"
-              style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}
             >
               Cerrar Sesión
             </button>
           </>
         ) : (
-          <Link to="/login" className="login-button" style={{ padding: 'var(--spacing-small) var(--spacing-medium)' }}>Iniciar Sesión</Link>
+          <Link to="/login" className="login-button">Iniciar Sesión</Link>
         )}
       </div>
     </header>

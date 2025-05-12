@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Header from './Header';
+import Chatbot from './Chatbot';
+import DailyTip from './DailyTip';
+import PetQuotes from './PetQuotes';
 import BookingForm from './BookingForm';
 import PetCard from './PetCard';
-import Chatbot from './Chatbot'; // Importar el componente Chatbot
-import { db } from '../firebase';
-import { collection, getDocs } from 'firebase/firestore';
 
 const Home = () => {
   const [services, setServices] = useState([]);
-  const [error, setError] = useState('');
   const [filter, setFilter] = useState('all');
   const [filteredServices, setFilteredServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
@@ -67,23 +66,8 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const servicesQuery = collection(db, 'services');
-        const servicesSnapshot = await getDocs(servicesQuery);
-        const fetchedServices = servicesSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-          icon: '🐕',
-          category: doc.data().category || 'Otros',
-          details: doc.data().details || 'Más información disponible bajo solicitud.',
-        }));
-        setServices([...staticServices, ...fetchedServices]);
-      } catch (err) {
-        setError(err.message || 'Error al cargar servicios adicionales');
-      }
-    };
-    fetchServices();
+    // Usar solo los servicios estáticos para evitar consultas a la base de datos
+    setServices(staticServices);
   }, []);
 
   useEffect(() => {
@@ -122,37 +106,20 @@ const Home = () => {
     },
     {
       question: '¿Puedo cancelar mi reserva?',
-      answer: 'Sí, puedes cancelar con hasta 24 horas de antelación sin costo. Contáctanos a través del Whatsapp para procesarlo.',
+      answer: 'Sí, puedes cancelar con hasta 24 horas de antelación sin costo. Contáctanos a través del WhatsApp para procesarlo.',
     },
   ];
 
   return (
-    <div>
+    <div className="home-container">
       <Header />
-      <section id="services">
-        <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginBottom: '40px', fontSize: '32px' }}>
-          Nuestros Servicios
-        </h2>
-        {error && (
-          <p
-            style={{
-              background: 'var(--coral-suave)',
-              color: 'var(--gris-oscuro)',
-              padding: '12px',
-              borderRadius: '10px',
-              textAlign: 'center',
-              maxWidth: '600px',
-              margin: '0 auto 30px',
-            }}
-          >
-            {error}
-          </p>
-        )}
-        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+      <section id="services" className="section">
+        <h2>Nuestros Servicios</h2>
+        <div className="filter-container">
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            style={{ padding: '8px', borderRadius: '10px', border: '2px solid var(--lavanda-claro)' }}
+            className="filter-select"
           >
             <option value="all">Todos</option>
             <option value="Paseo">Paseo</option>
@@ -163,10 +130,11 @@ const Home = () => {
             <option value="price-low">Precio: Bajo a Alto</option>
           </select>
         </div>
-        <div style={{ position: 'relative', maxWidth: '1200px', margin: '0 auto', overflow: 'hidden' }}>
+        <div className="carousel-wrapper">
           <button
             onClick={scrollLeft}
             className="carousel-arrow carousel-arrow-left"
+            aria-label="Deslizar a la izquierda"
           >
             ←
           </button>
@@ -196,6 +164,7 @@ const Home = () => {
                     <p>{service.details}</p>
                     <button
                       onClick={(e) => { e.stopPropagation(); closeDetails(); }}
+                      className="close-btn"
                     >
                       Cerrar
                     </button>
@@ -207,32 +176,22 @@ const Home = () => {
           <button
             onClick={scrollRight}
             className="carousel-arrow carousel-arrow-right"
+            aria-label="Deslizar a la derecha"
           >
             →
           </button>
         </div>
       </section>
-      <section id="about">
-        <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginBottom: '40px', fontSize: '32px' }}>
-          Sobre Nosotros
-        </h2>
-        <p
-          style={{
-            color: 'var(--gris-oscuro)',
-            fontSize: '16px',
-            lineHeight: '1.6',
-            maxWidth: '800px',
-            margin: '0 auto',
-            textAlign: 'center',
-          }}
-        >
+      <DailyTip />
+      <PetQuotes />
+      <section id="about" className="section">
+        <h2>Sobre Nosotros</h2>
+        <p>
           En Pet Care Royal, cuidamos a tus mascotas con amor y profesionalismo. Somos una empresa dedicada a ofrecer servicios de alta calidad, desde paseos hasta baños, asegurando la felicidad y bienestar de tus compañeros peludos.
         </p>
       </section>
-      <section id="location">
-        <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginBottom: '40px', fontSize: '32px' }}>
-          Nuestra Ubicación
-        </h2>
+      <section id="location" className="section">
+        <h2>Nuestra Ubicación</h2>
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019149183367!2d-122.4194156846813!3d37.77492977975966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808e5b8b3b9b%3A0x9c5c6d6e6f6e6f6e!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1698765432109!5m2!1sen!2sus"
           width="100%"
@@ -243,113 +202,57 @@ const Home = () => {
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
       </section>
-      <section id="bookings">
-        <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginBottom: '40px', fontSize: '32px' }}>
-          Reservar un Servicio
-        </h2>
+      <section id="bookings" className="section">
+        <h2>Reservar un Servicio</h2>
         <BookingForm />
       </section>
-      <section id="pets">
+      <section id="pets" className="section">
+        <h2>Mascota Destacada</h2>
         <PetCard />
       </section>
-      <section id="reviews">
-        <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginBottom: '40px', fontSize: '32px' }}>
-          Lo que dicen nuestros clientes
-        </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', maxWidth: '900px', margin: '0 auto' }}>
-          <div style={{ background: 'var(--blanco-crema)', padding: '20px', borderRadius: '15px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
-            <p style={{ color: 'var(--gris-oscuro)', fontStyle: 'italic' }}>"¡El baño fue increíble! Mi perro quedó feliz."</p>
-            <p style={{ color: 'var(--rosa-vibrante)', fontWeight: 'bold', marginTop: '10px' }}>- Ana G.</p>
+      <section id="reviews" className="section">
+        <h2>Lo que Dicen Nuestros Clientes</h2>
+        <div className="reviews-grid">
+          <div className="review-card">
+            <p className="review-text">"¡El baño fue increíble! Mi perro quedó feliz."</p>
+            <p className="review-author">- Ana G.</p>
           </div>
-          <div style={{ background: 'var(--blanco-crema)', padding: '20px', borderRadius: '15px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
-            <p style={{ color: 'var(--gris-oscuro)', fontStyle: 'italic' }}>"El paseo fue perfecto, muy recomendado."</p>
-            <p style={{ color: 'var(--rosa-vibrante)', fontWeight: 'bold', marginTop: '10px' }}>- Juan P.</p>
+          <div className="review-card">
+            <p className="review-text">"El paseo fue perfecto, muy recomendado."</p>
+            <p className="review-author">- Juan P.</p>
           </div>
         </div>
       </section>
-      <section id="contact" style={{ textAlign: 'center', padding: '40px 20px', background: 'var(--menta-suave)' }}>
-        <h2 style={{ color: 'var(--gris-oscuro)', marginBottom: '20px', fontSize: '32px' }}>Contáctanos</h2>
+      <section id="contact" className="section contact-section">
+        <h2>Contáctanos</h2>
         <a
           href="https://wa.me/913852768"
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            background: 'var(--oro-suave)',
-            color: 'var(--gris-oscuro)',
-            padding: '12px 24px',
-            borderRadius: '20px',
-            textDecoration: 'none',
-            fontWeight: '600',
-            boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
-            transition: 'all 0.3s ease',
-          }}
-          onMouseOver={(e) => e.target.style.background = 'var(--rosa-vibrante)'}
-          onMouseOut={(e) => e.target.style.background = 'var(--oro-suave)'}
+          className="whatsapp-btn"
         >
           Escríbenos por WhatsApp
         </a>
       </section>
-      <section id="faq" style={{ padding: '80px 20px', background: 'linear-gradient(135deg, var(--rosa-pastel), var(--blanco-crema))', position: 'relative', boxShadow: 'inset 0 0 15px var(--aura-magica)' }}>
-        <h2 style={{ color: 'var(--gris-oscuro)', textAlign: 'center', marginBottom: '40px', fontSize: '36px', fontFamily: '"Dancing Script", cursive', textShadow: '0 0 3px var(--oro-brillante)' }}>Preguntas Frecuentes</h2>
+      <section id="faq" className="section faq-section">
+        <h2>Preguntas Frecuentes</h2>
         {faqs.map((faq, index) => (
           <div
             key={index}
-            style={{
-              background: 'linear-gradient(135deg, var(--blanco-crema), var(--rosa-pastel))',
-              border: '2px solid var(--oro-brillante)',
-              borderRadius: '15px',
-              marginBottom: '25px',
-              overflow: 'hidden',
-              boxShadow: 'var(--shadow-3d), 0 0 15px var(--aura-magica)',
-              transition: 'transform var(--transition-medium) ease',
-              transformStyle: 'preserve-3d',
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-5px) translateZ(10px)')}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateZ(0)')}
+            className={`faq-item ${activeFaq === index ? 'active' : ''}`}
+            onClick={() => setActiveFaq(activeFaq === index ? null : index)}
           >
-            <div
-              style={{
-                fontFamily: '"Dancing Script", cursive',
-                fontSize: '22px',
-                padding: '15px 25px',
-                color: 'var(--gris-oscuro)',
-                cursor: 'pointer',
-                position: 'relative',
-                textShadow: '0 0 3px var(--brillo-aurora)',
-              }}
-              onClick={() => setActiveFaq(activeFaq === index ? null : index)}
-            >
+            <div className="faq-question">
               {faq.question}
-              <span
-                style={{
-                  position: 'absolute',
-                  right: '25px',
-                  transition: 'transform var(--transition-medium) ease',
-                  transform: activeFaq === index ? 'rotate(45deg)' : 'rotate(0deg)',
-                }}
-              >
-                +
-              </span>
+              <span className="faq-toggle">+</span>
             </div>
-            <div
-              style={{
-                fontFamily: '"Caveat", cursive',
-                fontSize: '18px',
-                padding: '15px 25px',
-                color: 'var(--gris-oscuro)',
-                background: 'var(--rosa-pastel)',
-                maxHeight: activeFaq === index ? '200px' : '0',
-                overflow: 'hidden',
-                transition: 'max-height var(--transition-slow) ease',
-                textShadow: '0 0 3px rgba(255, 255, 255, 0.2)',
-              }}
-            >
+            <div className="faq-answer">
               {faq.answer}
             </div>
           </div>
         ))}
       </section>
-      <Chatbot /> 
+      <Chatbot />
     </div>
   );
 };
