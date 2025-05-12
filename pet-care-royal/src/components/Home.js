@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import BookingForm from './BookingForm';
 import PetCard from './PetCard';
+import Chatbot from './Chatbot'; // Importar el componente Chatbot
 import { db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
@@ -121,7 +122,7 @@ const Home = () => {
     },
     {
       question: '¿Puedo cancelar mi reserva?',
-      answer: 'Sí, puedes cancelar con hasta 24 horas de antelación sin costo. Contáctanos a través del email para procesarlo.',
+      answer: 'Sí, puedes cancelar con hasta 24 horas de antelación sin costo. Contáctanos a través del Whatsapp para procesarlo.',
     },
   ];
 
@@ -269,7 +270,7 @@ const Home = () => {
       <section id="contact" style={{ textAlign: 'center', padding: '40px 20px', background: 'var(--menta-suave)' }}>
         <h2 style={{ color: 'var(--gris-oscuro)', marginBottom: '20px', fontSize: '32px' }}>Contáctanos</h2>
         <a
-          href="https://wa.me/1234567890"
+          href="https://wa.me/913852768"
           target="_blank"
           rel="noopener noreferrer"
           style={{
@@ -348,6 +349,7 @@ const Home = () => {
           </div>
         ))}
       </section>
+      <Chatbot /> 
     </div>
   );
 };
