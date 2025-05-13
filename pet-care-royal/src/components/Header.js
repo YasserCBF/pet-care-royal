@@ -53,8 +53,6 @@ const Header = () => {
             <button onClick={() => scrollToSection('services')} className="dropdown-item">Entrenamiento</button>
           </div>
         )}
-        <button onClick={() => scrollToSection('daily-tip-section')} className="nav-button">Consejo del Día</button>
-        <button onClick={() => scrollToSection('pet-quotes-section')} className="nav-button">Frases Inspiradoras</button>
         <button onClick={() => scrollToSection('about')} className="nav-button">Nosotros</button>
         <button onClick={() => scrollToSection('location')} className="nav-button">Ubicación</button>
         <button onClick={() => scrollToSection('bookings')} className="nav-button">Reservas</button>
