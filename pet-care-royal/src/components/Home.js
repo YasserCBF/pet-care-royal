@@ -193,9 +193,9 @@ const Home = () => {
       <section id="location" className="section">
         <h2>Nuestra Ubicación</h2>
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019149183367!2d-122.4194156846813!3d37.77492977975966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808e5b8b3b9b%3A0x9c5c6d6e6f6e6f6e!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1698765432109!5m2!1sen!2sus"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d531.6687423789532!2d-76.24457215852404!3d-9.93365149314816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91a7c3a9ea991623%3A0xcfb0d4e01da6e0fb!2sAnimal%20Planet!5e0!3m2!1ses-419!2spe!4v1747146501008!5m2!1ses-419!2spe"
           width="100%"
-          height="400"
+          height="450"
           style={{ border: 0 }}
           allowFullScreen=""
           loading="lazy"
@@ -206,7 +206,6 @@ const Home = () => {
         <h2>Reservar un Servicio</h2>
         <BookingForm />
       </section>
-      
       <section id="reviews" className="section">
         <h2>Lo que Dicen Nuestros Clientes</h2>
         <div className="reviews-grid">
